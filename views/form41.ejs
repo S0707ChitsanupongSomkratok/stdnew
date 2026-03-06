@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบสมัครนักเรียนชั้นมัธยมศึกษาปีที่ 4 เเผนการเรียน วิทศาสตร์-คณิตศาสตร์ โรงเรียนอรพิมพ์วิทยา</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --bg-color: #f4f7f9;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Sarabun', 'Helvetica', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header img {
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 3px solid var(--primary-color);
+        }
+
+        h2, p {
+            margin: 5px 0;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: var(--primary-color);
+            padding: 0 10px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(0,86,179,0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #003d80;
+        }
+
+        @media (max-width: 600px) {
+            .field { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img width="100" height="100" src="https://scontent.fnak1-1.fna.fbcdn.net/v/t39.30808-6/571282669_1186041970375079_2069898248186953381_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGsSNEGelAUWMisSs3k2rKrldGLOt7S1UKV0Ys63tLVQusPo4zXpD53Vsl0alXcGmZsvsDrGzSh5kua_E44LPDX&_nc_ohc=OMmeH3YdoNcQ7kNvwFwT6pF&_nc_oc=Adm4Na69Vz8DrUXZrjqzTBfufSqg3nzhtqvCz76broB1tS3-1bnqY34CIN4kYskKzNw&_nc_zt=23&_nc_ht=scontent.fnak1-1.fna&_nc_gid=d-Wyhhk3LyCS3oX8jYeJ9Q&_nc_ss=8&oh=00_AfyyQIUJcdGIgvVJRUVT3-Do0ypmuslPlabQkmO4KEvIRg&oe=69B03642" alt="Logo">
+        <h2>ใบสมัครนักเรียนชั้นมัธยมศึกษาปีที่ 4</h2>
+        <p>แผนการเรียนรู้วิทยาศาสตร์ - คณิตศาสตร์</p>
+        <p>โรงเรียนอรพิมพ์วิทยา อำเภอครบุรี จังหวัดนครราชสีมา</p>
+    </div>
+
+    <form action="/register" method="POST">
+        
+        <fieldset>
+            <legend>1. ข้อมูลส่วนตัวนักเรียน</legend>
+            <div class="form-group">
+                <div class="field" style="flex: 0.5;">
+                    <label for="prefix">คำนำหน้าชื่อ</label>
+                    <select name="prefix" id="prefix" required>
+                        <option value=""></option>
+                        <option value="นาย">นาย</option>
+                        <option value="นางสาว">นางสาว</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="firstname">ชื่อ</label>
+                    <input name="firstname" id="firstname" type="text" placeholder="ชื่อจริง" required>
+                </div>
+                <div class="field">
+                    <label for="lastname">นามสกุล</label>
+                    <input name="lastname" id="lastname" type="text" placeholder="นามสกุล" required>
+                </div>
+                 <div class="field">
+                    <label for="class">เเผนการเรียน</label>
+                    <input type="text" value="วิทยาศาสตร์-คณิตศาสตร์" readonly>
+                    <input type="hidden" name="room" value="m41">
+                    <input type="hidden" name="class" value="4">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="field">
+                    <label for="bd">เกิดวันที่</label>
+                    <input type="number" name="bd" id="bd" min="1" max="31" placeholder="วว" required>
+                </div>
+                <div class="field">
+                    <label for="mb">เดือน</label>
+                    <select name="mb" id="mb" required>
+                        <option value=""></option>
+                        <option value="มกราคม">มกราคม</option>
+                        <option value="กุมภาพันธ์">กุมภาพันธ์</option>
+                        <option value="มีนาคม">มีนาคม</option>
+                        <option value="เมษายน">เมษายน</option>
+                        <option value="พฤษภาคม">พฤษภาคม</option>
+                        <option value="มิถุนายน">มิถุนายน</option>
+                        <option value="กรกฎาคม">กรกฎาคม</option>
+                        <option value="สิงหาคม">สิงหาคม</option>
+                        <option value="กันยายน">กันยายน</option>
+                        <option value="ตุลาคม">ตุลาคม</option>
+                        <option value="พฤศจิกายน">พฤศจิกายน</option>
+                        <option value="ธันวาคม">ธันวาคม</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="yb">พ.ศ.</label>
+                    <input type="number" id="yb" name="yb" min="2540" max="2560" placeholder="พ.ศ." required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="pin">เลขประจำตัวประชาชน (13 หลัก)</label>
+                <input type="text" id="pin" name="pin" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" placeholder="X-XXXX-XXXXX-XX-X" required>
+            </div>
+            <div class="field">
+                    <label for="sold">ผู้สมัครจบการศึกษาจากโรงเรียน</label>
+                    <input type="text" name="sold" id="sold" required>
+                </div>
+                <div class="field">
+                    <label for="sd1">ตำบล</label>
+                    <input type="text" name="sd1" id="sd1" required>
+                </div><div class="field">
+                    <label for="sd2">อำเภอ</label>
+                    <input type="text" name="sd2" id="sd2" required>
+                </div><div class="field">
+                    <label for="spro">จังหวัด</label>
+                    <input type="text" name="spro" id="spro" required>
+                </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>2. ที่อยู่ปัจจุบัน</legend>
+            <div class="form-group">
+                <div class="field">
+                    <label for="housenum">บ้านเลขที่</label>
+                    <input type="text" name="housenum" id="housenum" required>
+                </div>
+                <div class="field">
+                    <label for="moo">หมู่ที่</label>
+                    <input type="number" name="moo" id="moo">
+                </div>
+                <div class="field">
+                    <label for="village">หมู่บ้าน/ชุมชน</label>
+                    <input type="text" name="village" id="village">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="field">
+                    <label for="district1">ตำบล</label> 
+                    <input type="text" name="district1" id="district1" required>
+                </div>
+                <div class="field">
+                    <label for="district2">อำเภอ</label>
+                    <input type="text" name="district2" id="district2" required>
+                </div>
+                <div class="field">
+                    <label for="province">จังหวัด</label>
+                    <input type="text" name="province" id="province" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="field">
+                    <label for="zipcode">รหัสไปรษณีย์</label>
+                    <input type="text" name="zipcode" id="zipcode" pattern="[0-9]{5}" required>
+                </div>
+                <div class="field">
+                    <label for="tel">เบอร์โทรศัพท์นักเรียน</label>
+                    <input 
+                        type="text"
+                        name="tel"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>3. ข้อมูลผู้ปกครอง</legend>
+            <div class="form-group">
+                <div class="field">
+                    <label for="fn">ชื่อบิดา</label>
+                    <input type="text" name="fn" id="fn" required>
+                </div>
+                <div class="field">
+                    <label for="fo">อาชีพ</label>
+                    <input type="text" name="fo" id="fo" required>
+                </div>
+                <div class="field">
+                    <label for="ftel">เบอร์โทรศัพท์บิดา</label>
+                    <input 
+                        type="text"
+                        name="ftel"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required>
+                </div>
+            </div>
+            <hr style="border: 0.5px solid #eee; margin: 15px 0;">
+            <div class="form-group">
+                <div class="field">
+                    <label for="mn">ชื่อมารดา</label>
+                    <input type="text" name="mn" id="mn" required>
+                </div>
+                <div class="field">
+                    <label for="mo">อาชีพ</label>
+                    <input type="text" name="mo" id="mo" required>
+                </div>
+                <div class="field">
+                    <label for="mtel">เบอร์โทรศัพท์มารดา</label>
+                    <input 
+                        type="text"
+                        name="mtel"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>4. ข้อมูลเพิ่มเติม</legend>
+            <label>ปัจจุบันอาศัยอยู่กับ:</label>
+            <div class="radio-group">
+                <label class="radio-item"><input value="บิดา มารดา" type="radio" name="shomefm" required onclick="toggleOtherInput(false)"> บิดา และมารดา</label>
+                <label class="radio-item"><input value="บิดา" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> บิดา</label>
+                <label class="radio-item"><input value="มารดา" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> มารดา</label>
+                <label class="radio-item"><input value="ญาติพี่น้อง" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> ญาติพี่น้อง</label>
+                
+                <label class="radio-item">
+                    <input value="อื่นๆ" type="radio" name="shomefm" id="radio_other" onclick="toggleOtherInput(true)"> อื่นๆ
+                </label>
+
+                <div id="other_input_container" style="display: none; margin-top: 10px; margin-left: 25px;">
+                    <input type="text" id="shomefm_other" placeholder="โปรดระบุรายละเอียด..." 
+                        style="width: 200px;" 
+                        oninput="document.getElementById('radio_other').value = this.value">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+                <div class="field">
+                    <label for="moneyfm">ผู้อุปการะด้านการเงิน</label>
+                    <input type="text" name="moneyfm" id="moneyfm" placeholder="เช่น บิดา, มารดา, ลุง" required>
+                </div>
+                <div class="field">
+                    <label for="skill">ความสามารถพิเศษ</label>
+                    <input type="text" name="skill" id="skill" placeholder="ดนตรี, กีฬา, ฯลฯ">
+                </div>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn-submit">ส่งใบสมัครข้อมูล</button>
+    </form>
+</div>
+
+<script>
+    
+    
+    function toggleOtherInput(show) {
+        const container = document.getElementById('other_input_container');
+        const inputField = document.getElementById('shomefm_other');
+        const radioOther = document.getElementById('radio_other');
+        
+        if (show) {
+            container.style.display = 'block';
+            inputField.required = true;
+            inputField.focus();
+            // เมื่อคลิกเลือก "อื่นๆ" ให้เอาค่าจากช่อง text มาใส่ใน value ของ radio
+            radioOther.value = inputField.value;
+        } else {
+            container.style.display = 'none';
+            inputField.required = false;
+            // เมื่อเลือกข้ออื่น (ที่ไม่ใช่ "อื่นๆ") ให้ล้างค่าในช่อง text
+            inputField.value = '';
+            // รีเซ็ตค่า value ของ radio กลับเป็นคำว่า "อื่นๆ" (หรือค่าว่างก็ได้)
+            radioOther.value = 'อื่นๆ';
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

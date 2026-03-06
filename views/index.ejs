@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบรับสมัครนักเรียน - โรงเรียนอรพิมพ์วิทยา</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #28a745;
+            --bg-color: #f0f2f5;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* --- ส่วนที่เพิ่ม/ปรับปรุงสำหรับโลโก้ --- */
+        .logo-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .school-logo {
+            width: 120px; /* ปรับขนาดโลโก้ที่นี่ */
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .school-logo:hover {
+            transform: scale(1.05); /* ให้โลโก้ขยับเล็กน้อยเวลาเมาส์ชี้ */
+        }
+        /* ---------------------------------- */
+
+        h1 {
+            color: var(--primary-color);
+            margin: 10px 0;
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .m1 { border-top: 6px solid var(--secondary-color); }
+        .m4 { border-top: 6px solid var(--primary-color); }
+
+        .m4-label {
+            grid-column: 1 / -1;
+            text-align: left;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+            color: #555;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-wrapper">
+        <img src="https://scontent.fnak1-1.fna.fbcdn.net/v/t39.30808-6/571282669_1186041970375079_2069898248186953381_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGsSNEGelAUWMisSs3k2rKrldGLOt7S1UKV0Ys63tLVQusPo4zXpD53Vsl0alXcGmZsvsDrGzSh5kua_E44LPDX&_nc_ohc=OMmeH3YdoNcQ7kNvwFwT6pF&_nc_oc=Adm4Na69Vz8DrUXZrjqzTBfufSqg3nzhtqvCz76broB1tS3-1bnqY34CIN4kYskKzNw&_nc_zt=23&_nc_ht=scontent.fnak1-1.fna&_nc_gid=d-Wyhhk3LyCS3oX8jYeJ9Q&_nc_ss=8&oh=00_AfyyQIUJcdGIgvVJRUVT3-Do0ypmuslPlabQkmO4KEvIRg&oe=69B03642" 
+             alt="โลโก้โรงเรียนอรพิมพ์วิทยา" 
+             class="school-logo">
+    </div>
+
+    <h1>ระบบรับสมัครนักเรียนออนไลน์</h1>
+    <p class="subtitle">โรงเรียนอรพิมพ์วิทยา อำเภอครบุรี จังหวัดนครราชสีมา</p>
+
+    <div class="m4-label">ระดับชั้นมัธยมศึกษาปีที่ 1</div>
+    <div class="selection-grid">
+        <a href="/form1" class="card m1">
+            <h3>ระดับชั้นมัธยมศึกษาปีที่ 1</h3>
+            <p style="font-weight: normal; color: #777;">เปิดรับสมัครนักเรียนใหม่ ม.1</p>
+        </a>
+
+        <div class="m4-label">ระดับชั้นมัธยมศึกษาปีที่ 4</div>
+
+        <a href="/form41" class="card m4">
+            <h3>วิทย์ - คณิต</h3>
+            <p style="font-weight: normal; color: #777;">แผนการเรียนวิทยาศาสตร์ - คณิตศาสตร์</p>
+        </a>
+
+        <a href="/form42" class="card m4">
+            <h3>คณิต - วิทย์ (เทคโนโลยี)</h3>
+            <p style="font-weight: normal; color: #777;">แผนการเรียนเทคโนโลยีและนวัตกรรม</p>
+        </a>
+
+        <a href="/form43" class="card m4">
+            <h3>ช่างทั่วไป</h3>
+            <p style="font-weight: normal; color: #777;">แผนการเรียนสายทักษะวิชาชีพ</p>
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 โรงเรียนอรพิมพ์วิทยา <br> ต.แชะ อ.ครบุรี จ.นครราชสีมา</p>
+    </footer>
+</div>
+
+</body>
+</html>
