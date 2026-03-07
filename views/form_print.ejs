@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบสมัครนักเรียน</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #c8c8c8;
+    font-family: 'Sarabun', 'TH SarabunPSK', serif;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 10px;
+  }
+
+  .paper {
+    background: #fff;
+    width: 210mm;
+    height: 297mm;
+    padding: 10mm 15mm 8mm 15mm;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    html, body {
+      width: 210mm;
+      height: 297mm;
+      background: #fff;
+      padding: 0;
+      margin: 0;
+    }
+    .paper {
+      width: 210mm;
+      height: 297mm;
+      padding: 10mm 15mm 8mm 15mm;
+      box-shadow: none;
+      margin: 0;
+      page-break-after: avoid;
+      overflow: hidden;
+    }
+  }
+
+  /* Top section: logo left, application number + photo right */
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+
+  .logo-area img {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+  }
+
+  .top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .app-number {
+    font-size: 12px;
+  }
+
+  .photo-box {
+    border: 1px solid #333;
+    width: 85px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .header h2 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 1px;
+  }
+
+  .header .plan {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 1px;
+  }
+
+  .header .school {
+    font-size: 13px;
+  }
+
+  .section-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin: 6px 0 4px 0;
+  }
+
+  /* Underline rows */
+  .field-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    gap: 3px;
+  }
+
+  .field-row label {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .field-row .line {
+    border-bottom: 1px solid #333;
+    flex: 1;
+    min-width: 60px;
+    height: 16px;
+    display: inline-block;
+  }
+
+  .field-row .line-fixed {
+    border-bottom: 1px solid #333;
+    display: inline-block;
+    height: 16px;
+  }
+
+  /* National ID boxes */
+  .id-label {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .id-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-bottom: 7px;
+  }
+
+  .id-boxes .box {
+    border: 1px solid #333;
+    width: 20px;
+    height: 23px;
+  }
+
+  .id-boxes .dash {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    padding: 0 1px;
+  }
+
+  /* Parent info rows */
+  .info-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    gap: 3px;
+  }
+
+  .info-row label { white-space: nowrap; flex-shrink: 0; }
+  .info-row .line { border-bottom: 1px solid #333; flex:1; min-width:50px; height:16px; }
+
+  /* Current living options */
+  .living-options {
+    margin: 2px 0 4px 10px;
+  }
+
+  .living-options .opt-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    gap: 5px;
+  }
+
+  .living-options .opt-row input[type="checkbox"] {
+    margin-right: 3px;
+  }
+
+  /* Signature section */
+  .sig-section {
+    margin-top: 8px;
+    text-align: right;
+    line-height: 1.9;
+  }
+
+  .sig-section .sig-line { border-bottom: 1px solid #333; display: inline-block; width: 150px; }
+
+  .divider {
+    border-top: 1px dashed #555;
+    margin: 8px 0;
+  }
+
+  /* Staff section */
+  .staff-section { margin-top: 4px; }
+
+  .staff-section .staff-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+
+  .checkrow {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .checkrow .check-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .checkrow .check-item input[type="checkbox"] {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  .other-line {
+    border-bottom: 1px solid #333;
+    display: inline-block;
+    width: 200px;
+    height: 15px;
+    vertical-align: bottom;
+  }
+
+  /* Bottom signature row */
+  .bottom-sig {
+    margin-top: 14px;
+    text-align: right;
+    line-height: 1.9;
+  }
+</style>
+</head>
+<body>
+<div class="paper">
+
+  <!-- Top row: logo | app number + photo -->
+  <div class="top-row">
+    <div class="logo-area">
+      <img src="https://scontent.fnak1-1.fna.fbcdn.net/v/t39.30808-6/571282669_1186041970375079_2069898248186953381_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeGsSNEGelAUWMisSs3k2rKrldGLOt7S1UKV0Ys63tLVQusPo4zXpD53Vsl0alXcGmZsvsDrGzSh5kua_E44LPDX&_nc_ohc=OMmeH3YdoNcQ7kNvwFwT6pF&_nc_oc=Adm4Na69Vz8DrUXZrjqzTBfufSqg3nzhtqvCz76broB1tS3-1bnqY34CIN4kYskKzNw&_nc_zt=23&_nc_ht=scontent.fnak1-1.fna&_nc_gid=d-Wyhhk3LyCS3oX8jYeJ9Q&_nc_ss=8&oh=00_AfyyQIUJcdGIgvVJRUVT3-Do0ypmuslPlabQkmO4KEvIRg&oe=69B03642" alt="โลโก้โรงเรียน" onerror="this.style.display='none'">
+    </div>
+    <div class="top-right">
+      <div class="app-number">ใบสมัครเลขที่ <b style="font-size: 18px;"><%= student.id %></b></div>
+      <div class="photo-box">รูปถ่าย<br>1 นิ้วครึ่ง</div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h2 style="font-size: 22px;">ใบสมัครนักเรียนชั้นมัธยมศึกษาปีที่ <b><%= student.class %></b></h2>
+    <div class="plan"><% if (student.room == "m1") { %>
+        <b style="font-size: 20px;">(เเผนการเรียน ทั่วไป)</b>
+    <% } else if (student.room == "m41")  { %>
+        <b style="font-size: 20px;">(เเผนการเรียน วิทยาศาสตร์-คณิตศาสตร์)</b>
+    <% } else if (student.room == "m42")  { %>
+        <b style="font-size: 20px;">(เเผนการเรียน คณิตศาสตร์-วิทยาศาสตร์เเละเทคโนโลยี)</b>
+    <% } else { %>
+        <b style="font-size: 20px;">(เเผนการเรีย ช่างทั่วไป)</b>
+    <% } %> </div>
+    <div class="school"><p style="font-size: 18px;">โรงเรียนอรพิมพ์วิทยา&nbsp;&nbsp;อำเภอครบุรี &nbsp;&nbsp;จังหวัดนครราชสีมา</p></div>
+  </div>
+
+    <br>
+
+  <!-- Section 1 -->
+  <div class="section-title">1. ข้อมูลนักเรียน</div>
+
+  <div class="field-row">
+    <label>ชื่อ</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.prefix %><%= student.firstname %></b></p></span>
+    <label>นามสกุล</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.lastname %></b></p></span>
+  </div>
+
+  <div class="field-row">
+    <label>เกิดวันที่</label>
+    <span class="line-fixed" style="width:70px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.bd %></b></p></span>
+    <label>เดือน</label>
+    <span class="line-fixed" style="width:110px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.mb %></b></p></span>
+    <label>พ.ศ.</label>
+    <span class="line-fixed" style="width:80px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.yb %></b></p></span>
+  </div>
+
+  <div class="field-row">
+    <label>ที่อยู่ปัจจุบัน บ้านเลขที่</label>
+    <span class="line-fixed" style="width:70px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.housenum %></b></p></span>
+    <label>หมู่ที่</label>
+    <span class="line-fixed" style="width:50px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.moo %></b></p></span>
+    <label>บ้าน</label>
+    <span class="line-fixed" style="width: 150px;"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.village %></b></p></span>
+    <label>ตำบล</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.district1 %></b></p></span>
+  </div>
+
+  <div class="field-row">
+    <label>อำเภอ</label>
+    <span class="line-fixed" style="width:100px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.district2 %></b></p></span>
+    <label>จังหวัด</label>
+    <span class="line-fixed" style="width:100px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.province %></b></p></span>
+    <label>รหัสไปรษณีย์</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.zipcode %></b></p></span>
+  </div>
+
+  <div class="field-row">
+    <label>เบอร์โทรศัพท์</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.tel %></b></p></span>
+    <label>เลขประจำตัวประชาชน 13 หลัก ผู้สมัคร</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.pin%></b></p></span>
+  </div>
+
+  <!-- National ID -->
+  <!-- <div class="id-label">เลขประจำตัวประชาชน 13 หลัก ผู้สมัคร</div> -->
+  <!-- <div class="id-boxes">
+    <div class="box"></div>
+    <div class="dash">-</div>
+    <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+    <div class="dash">-</div>
+    <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+    <div class="dash">-</div>
+    <div class="box"></div><div class="box"></div>
+    <div class="dash">-</div>
+    <div class="box"></div>
+  </div> -->
+
+  <!-- Parents -->
+  <div class="info-row">
+    <label>ชื่อบิดา</label>
+    <span class="line" style="min-width:120px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.fn%></b></p></span>
+    <label>อาชีพ</label>
+    <span class="line" style="min-width:80px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.fo%></b></p></span>
+    <label>เบอร์โทรศัพท์</label>
+    <span class="line" style="min-width:80px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.ftel%></b></p></span>
+  </div>
+
+  <div class="info-row">
+    <label>ชื่อมารดา</label>
+    <span class="line" style="min-width:120px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.mn%></b></p></span>
+    <label>อาชีพ</label>
+    <span class="line" style="min-width:80px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.mo%></b></p></span>
+    <label>เบอร์โทรศัพท์</label>
+    <span class="line" style="min-width:80px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.mtel%></b></p></span>
+  </div>
+
+  <!-- Previous school -->
+  <div class="info-row">
+    <label>ผู้สมัครจบการศึกษาจากโรงเรียน</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.sold%></b></p></span>
+  </div>
+
+  <div class="info-row">
+    <label>ตำบล</label>
+    <span class="line" style="min-width:90px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.sd1%></b></p></span>
+    <label>อำเภอ</label>
+    <span class="line" style="min-width:90px"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.sd2%></b></p></span>
+    <label>จังหวัด</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.spro%></b></p></span>
+  </div>
+
+  <br>
+
+  <!-- Section 2 -->
+  <div class="section-title">2. ข้อมูลเพิ่มเติม</div>
+  <div class="info-row">
+    <label>ปัจจุบันอาศัยอยู่กับ</label>
+    <span class="line" style="min-width: 10px;"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.shomefm%></b></p></span>
+  </div>
+
+  <!-- <div style="margin-bottom:4px">ปัจจุบันอาศัยอยู่กับ</div>
+  <div class="living-options">
+    <div class="opt-row"><input type="checkbox"> <span>บิดา มารดา</span></div>
+    <div class="opt-row"><input type="checkbox"> <span>บิดาหรือมารดา &nbsp;<input type="checkbox" style="margin-right:3px"> มารดา</span></div>
+    <div class="opt-row"><input type="checkbox"> <span>ญาติพี่น้อง</span></div>
+    <div class="opt-row">
+      <input type="checkbox">
+      <span>อื่นๆโปรดระบุ</span>
+      <span style="border-bottom:1px solid #333; flex:1; min-width:200px; display:inline-block; height:18px"></span>
+    </div>
+  </div> -->
+
+  <div class="info-row">
+    <label>ผู้อุปการะด้านการเงินในขณะที่เรียน</label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.moneyfm%></b></p></span>
+  </div>
+
+  <div class="info-row">
+    <label>ความสามารถพิเศษ </label>
+    <span class="line"><p style="text-align: center;"><b style="font-size: 14px;"><%= student.skill%></b></p></span>
+  </div>
+
+  <!-- Declaration -->
+  <div style="margin: 6px 0 4px 0; line-height: 1.7; text-align: justify; font-size:13px;">
+    &nbsp;&nbsp;&nbsp;&nbsp;ข้าพเจ้าขอรับรองว่าข้อความที่กล่าวมาในขั้นต้นเป็นความจริงทุกประการและข้าพเจ้ามีความประสงค์ที่จะสมัครเข้าเรียนชั้นมัธยมศึกษาปีที่ 4 ในปีการศึกษา 2569
+  </div>
+
+  <!-- Signature applicant -->
+  <div class="sig-section">
+    ลงชื่อ<span class="sig-line"></span>ผู้สมัคร<br>
+    <span style="display:inline-block;width:150px;text-align:center;"><p style="text-align: center;"><b style="font-size: 14px;">(<%= student.prefix%><%= student.firstname%> <%= student.lastname%>)</b></p></span><br>
+    <%= new Date().toLocaleDateString('th-TH',{
+        day:'2-digit',
+        month:'long',
+        year:'numeric'
+    }) %>
+  </div>
+
+  <div style="margin:7px 0 7px 0; border-top:1px dashed #555;"></div>
+
+  <!-- Staff Section -->
+  <div class="staff-section">
+    <div class="staff-title">(เฉพาะเจ้าหน้าที่)</div>
+
+    <div style="margin-bottom:6px"><b>หลักฐาน</b></div>
+
+    <div class="checkrow">
+      <div class="check-item" style="flex:1; min-width:220px">
+        <input type="checkbox"> <span>สำเนาทะเบียนบ้านผู้สมัคร 1 ชุด</span>
+      </div>
+      <div class="check-item" style="flex:1; min-width:220px">
+        <input type="checkbox"> <span>สำเนาทะเบียนบ้านบิดา-มารดา 1 ชุด</span>
+      </div>
+    </div>
+
+    <div class="checkrow">
+      <div class="check-item" style="flex:1; min-width:220px">
+        <input type="checkbox"> <span>สำเนาบัตรประชาชนผู้สมัคร 1 ชุด</span>
+      </div>
+      <div class="check-item" style="flex:1; min-width:220px">
+        <input type="checkbox"> <span>สำเนา ใบ ปพ.1 &nbsp;&nbsp; 1 ชุด</span>
+      </div>
+    </div>
+
+    <div class="checkrow">
+      <div class="check-item" style="flex:1; min-width:220px">
+        <input type="checkbox"> <span>รูปถ่าย 1 นิ้วครึ่ง จำนวน 2 รูป</span>
+      </div>
+      <div class="check-item" style="flex:1; min-width:220px">
+        <input type="checkbox"> <span>สำเนาสูติบัตร &nbsp;&nbsp; 1 ชุด</span>
+      </div>
+    </div>
+
+    <div class="checkrow">
+      <div class="check-item">
+        <input type="checkbox"> <span>อื่น ๆ</span>
+      </div>
+      <span class="other-line"></span>
+    </div>
+  </div>
+
+  <!-- Bottom signature staff -->
+  <div class="bottom-sig">
+    ลงชื่อ<span style="border-bottom:1px solid #333; display:inline-block; width:150px;"></span>เจ้าหน้าที่รับเอกสาร<br>
+    (<span style="display:inline-block;width:150px;text-align:center;">........................................</span>)<br>
+     <%= new Date().toLocaleDateString('th-TH',{
+        day:'2-digit',
+        month:'long',
+        year:'numeric'
+    }) %>
+  </div>
+
+</div>
+</body>
+</html>

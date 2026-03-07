@@ -143,12 +143,29 @@ app.post("/register", (req, res) => {
                 return res.send("บันทึกข้อมูลไม่สำเร็จ");
             }
 
-            res.send("สมัครสำเร็จ เลขที่สมัครของคุณคือ : " + id);
+            // res.send("สมัครสำเร็จ เลขที่สมัครของคุณคือ : " + id);
+            res.redirect('/print/' + id);
         });
 
     });
 
 });
+
+app.get("/print/:id", (req,res)=>{
+
+const id = req.params.id
+
+const sql = "SELECT * FROM stdnew WHERE id = ?"
+
+db.query(sql,[id],(err,result)=>{
+
+const student = result[0]
+
+res.render("form_print",{student})
+
+})
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port localhost:${PORT}`);
