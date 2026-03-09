@@ -4,20 +4,20 @@ const PORT = process.env.PORT || 3000;
 
 const mysql = require("mysql2");
 
-// const db = mysql.createConnection({
-//     host: "thsv63.hostatom.com",
-//     user: "google_student",
-//     password: "orapimwit",
-//     database: "google_student",
-//     port: 3306
-// });
-
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "mydatabase",
+    host: "thsv63.hostatom.com",
+    user: "google_student",
+    password: "orapimwit",
+    database: "google_student",
+    port: 3306
 });
+
+// const db = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "mydatabase",
+// });
 
 db.connect((err) => {
     if (err) throw err;
