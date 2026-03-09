@@ -52,21 +52,29 @@
     }
   }
 
-  /* Top section: logo left, application number + photo right */
+   /* ปรับปรุงส่วน top-row ใหม่ */
   .top-row {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 4px;
+    flex-direction: column; /* จัดองค์ประกอบเป็นแนวตั้ง */
+    align-items: center;    /* จัดให้อยู่กึ่งกลางแนวนอน */
+    position: relative;     /* เพื่อให้เลขที่ใบสมัครและรูปถ่ายอิงตำแหน่งได้ */
+    margin-bottom: 20px;
+  }
+
+  .logo-area {
+    margin-bottom: 10px;
   }
 
   .logo-area img {
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     object-fit: contain;
   }
 
-  .top-right {
+   .top-right {
+    position: absolute;
+    right: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

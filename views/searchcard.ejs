@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค้นหาบัตรประจำตัวผู้สมัคร</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* พื้นหลังสีน้ำเงินเข้ม ไล่เฉดให้ดูมีมิติ */
+            background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            /* เพิ่มขอบสีเหลืองด้านบนให้ดูเด่น */
+            border-top: 8px solid #ffcc00;
+        }
+
+        h2 {
+            color: #003366;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"] {
+            padding: 14px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            border-color: #003366;
+            box-shadow: 0 0 8px rgba(0, 51, 102, 0.1);
+        }
+
+        button {
+            padding: 14px;
+            /* ปุ่มสีเหลือง ตัวหนังสือสีน้ำเงินเข้ม */
+            background-color: #ffcc00;
+            color: #003366;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 0 #d4aa00; /* เพิ่มมิติเงาปุ่มด้านล่าง */
+        }
+
+        button:hover {
+            background-color: #ffd633;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #d4aa00;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 0 #d4aa00;
+        }
+
+        .footer-text {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>ค้นหาบัตรประจำตัวผู้สมัคร</h2>
+        <p>ระบุเลขประจำผู้สมัคร</p>
+        
+        <div class="input-group">
+            <input type="text" id="cardId" placeholder="XXXX" autocomplete="off">
+            <button onclick="goToCard()">ค้นหาข้อมูล</button>
+        </div>
+
+        <div class="footer-text">
+            <!-- © 2024 Your Service Name -->
+        </div>
+    </div>
+
+    <script>
+        function goToCard() {
+            const input = document.getElementById('cardId');
+            const id = input.value.trim();
+            if (id) {
+                window.location.href = '/card/' + id;
+            } else {
+                // เขย่า input เบาๆ เมื่อไม่ได้กรอก (เสริม UX)
+                input.style.borderColor = '#ff4444';
+                alert('กรุณากรอก ID ของคุณ');
+                setTimeout(() => input.style.borderColor = '#e0e0e0', 2000);
+            }
+        }
+
+        document.getElementById('cardId').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                goToCard();
+            }
+        });
+    </script>
+    
+</body>
+</html>

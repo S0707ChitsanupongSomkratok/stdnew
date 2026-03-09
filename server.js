@@ -4,12 +4,19 @@ const PORT = process.env.PORT || 3000;
 
 const mysql = require("mysql2");
 
+// const db = mysql.createConnection({
+//     host: "thsv63.hostatom.com",
+//     user: "google_student",
+//     password: "orapimwit",
+//     database: "google_student",
+//     port: 3306
+// });
+
 const db = mysql.createConnection({
-    host: "thsv63.hostatom.com",
-    user: "google_student",
-    password: "orapimwit",
-    database: "google_student",
-    port: 3306
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "mydatabase",
 });
 
 db.connect((err) => {
@@ -48,6 +55,17 @@ app.get('/form43', (req, res) => {
 
 app.post("/register", (req, res) => {
 
+    
+    const now = new Date();
+    const d = String(now.getDate()).padStart(2, '0');
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const y = now.getFullYear() + 543;
+    const h = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    
+    const fullDate = `${d}-${m}-${y}-${h}:${min}`;
+
+
     const data = req.body;
     const room = data.room;   // m41
     const classs = data.class; // 4
@@ -56,7 +74,7 @@ app.post("/register", (req, res) => {
     const sqlCount = "SELECT COUNT(*) AS total FROM stdnew WHERE room = ?";
 
     db.query(sqlCount, [room], (err, result) => {
-
+        
         if (err) {
             console.log(err);
             return res.send("เกิดข้อผิดพลาด");
@@ -89,8 +107,8 @@ app.post("/register", (req, res) => {
             zipcode, tel,
             fn, fo, ftel,
             mn, mo, mtel,
-            shomefm, moneyfm, skill
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            shomefm, moneyfm, skill, timere
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         `;
 
         const values = [
@@ -133,7 +151,9 @@ app.post("/register", (req, res) => {
 
             data.shomefm,
             data.moneyfm,
-            data.skill
+            data.skill,
+
+            fullDate
         ];
 
         db.query(sqlInsert, values, (err) => {
@@ -153,19 +173,82 @@ app.post("/register", (req, res) => {
 
 app.get("/print/:id", (req,res)=>{
 
-const id = req.params.id
+        const id = req.params.id
 
-const sql = "SELECT * FROM stdnew WHERE id = ?"
+        const sql = "SELECT * FROM stdnew WHERE id = ?"
 
-db.query(sql,[id],(err,result)=>{
+        db.query(sql,[id],(err,result)=>{
 
-const student = result[0]
+        const student = result[0]
 
-res.render("form_print",{student})
+        res.render("form_print",{student})
 
-})
+    });
 
-})
+});
+
+
+app.get("/card/:id", (req,res)=>{
+
+        const id = req.params.id
+
+        const sql = "SELECT * FROM stdnew WHERE id = ?"
+
+        db.query(sql,[id],(err,result)=>{
+
+        const student = result[0]
+
+        res.render("cardstdnew",{student})
+
+    });
+
+});
+
+app.get('/searchprint', (req, res) => {
+    res.render('searchprint');
+});
+
+app.get('/searchcard', (req, res) => {
+    res.render('searchcard');
+});
+
+app.get("/showstdnew", (req, res) => {
+
+    const sql = "SELECT * FROM stdnew ORDER BY room, id";
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("database error");
+        }
+
+        const grouped = {
+            m1: [],
+            m41: [],
+            m42: [],
+            m43: []
+        };
+
+        result.forEach(std => {
+
+            if (grouped[std.room]) {
+                grouped[std.room].push(std);
+            }
+
+        });
+
+        res.render("showstdnew", {
+            data: grouped
+        });
+
+    });
+
+});
+
+app.get('/test', (req, res) => {
+    res.render('test');
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port localhost:${PORT}`);
