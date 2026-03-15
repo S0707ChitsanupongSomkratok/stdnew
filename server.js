@@ -64,6 +64,7 @@ app.post("/register", (req, res) => {
     const min = String(now.getMinutes()).padStart(2, '0');
     
     const fullDate = `${d}-${m}-${y}-${h}:${min}`;
+    const datere = `${y - 543}-${m}-${d}`;
 
 
     const data = req.body;
@@ -107,8 +108,8 @@ app.post("/register", (req, res) => {
             zipcode, tel,
             fn, fo, ftel,
             mn, mo, mtel,
-            shomefm, moneyfm, skill, timere
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            shomefm, moneyfm, skill, timere, datere
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         `;
 
         const values = [
@@ -153,7 +154,8 @@ app.post("/register", (req, res) => {
             data.moneyfm,
             data.skill,
 
-            fullDate
+            fullDate,
+            datere
         ];
 
         db.query(sqlInsert, values, (err) => {
@@ -249,6 +251,182 @@ app.get("/showstdnew", (req, res) => {
 app.get('/test', (req, res) => {
     res.render('test');
 });
+
+// หน้าสำหรับแสดงฟอร์มแก้ไข (ดึงข้อมูลเก่ามาโชว์)
+app.get('/edit/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM stdnew WHERE id = ?';
+    
+    db.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        // ส่งข้อมูลแถวแรก (result[0]) ไปที่ไฟล์ ejs
+        res.render('edit', { std: result[0] }); 
+    });
+});
+
+app.post('/update/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    const {
+        room, class: class_val, prefix, firstname, lastname,
+        bd, mb, yb, housenum, moo, village, district1, district2,
+        province, zipcode, tel, pin,
+        fn, fo, ftel,
+        mn, mo, mtel,
+        sold, sd1, sd2, spro,
+        shomefm, moneyfm, skill
+    } = req.body;
+
+    const sql = `
+    UPDATE stdnew SET
+        room = ?,
+        class = ?,
+        prefix = ?,
+        firstname = ?,
+        lastname = ?,
+        bd = ?,
+        mb = ?,
+        yb = ?,
+        housenum = ?,
+        moo = ?,
+        village = ?,
+        district1 = ?,
+        district2 = ?,
+        province = ?,
+        zipcode = ?,
+        tel = ?,
+        pin = ?,
+        fn = ?,
+        fo = ?,
+        ftel = ?,
+        mn = ?,
+        mo = ?,
+        mtel = ?,
+        sold = ?,
+        sd1 = ?,
+        sd2 = ?,
+        spro = ?,
+        shomefm = ?,
+        moneyfm = ?,
+        skill = ?
+    WHERE id = ?
+    `;
+
+    const values = [
+        room, class_val, prefix, firstname, lastname,
+        bd, mb, yb,
+        housenum, moo, village,
+        district1, district2, province, zipcode,
+        tel, pin,
+        fn, fo, ftel,
+        mn, mo, mtel,
+        sold, sd1, sd2, spro,
+        shomefm, moneyfm, skill,
+        id
+    ];
+
+    db.query(sql, values, (err) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("เกิดข้อผิดพลาดในการแก้ไขข้อมูล");
+        }
+
+        res.redirect('/showstdnew');
+
+    });
+
+});
+
+app.get('/delete/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    const sql = "DELETE FROM stdnew WHERE id = ?";
+
+    db.query(sql, [id], (err) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("ลบข้อมูลไม่สำเร็จ");
+        }
+
+        res.redirect('/stdor');
+
+    });
+
+});
+
+app.get("/showday/:date", (req, res) => {
+
+    const date = req.params.date;
+
+    const sql = "SELECT * FROM stdnew WHERE datere = ? ORDER BY room, id";
+
+    db.query(sql, [date], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("database error");
+        }
+
+        const grouped = {
+            m1: [],
+            m41: [],
+            m42: [],
+            m43: []
+        };
+
+        result.forEach(std => {
+
+            if (grouped[std.room]) {
+                grouped[std.room].push(std);
+            }
+
+        });
+
+        res.render("showday", {
+            data: grouped,
+            date: date
+        });
+
+    });
+
+});
+
+app.get('/stdor', (req, res) => {
+    const sql = "SELECT * FROM stdnew ORDER BY room, id";
+
+    db.query(sql, (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("database error");
+        }
+
+        const grouped = {
+            m1: [],
+            m41: [],
+            m42: [],
+            m43: []
+        };
+
+        result.forEach(std => {
+
+            if (grouped[std.room]) {
+                grouped[std.room].push(std);
+            }
+
+        });
+
+        res.render("stdor", {
+            data: grouped
+        });
+
+    });
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port localhost:${PORT}`);

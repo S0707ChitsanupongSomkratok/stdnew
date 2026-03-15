@@ -376,16 +376,16 @@
       </div>
     </div>
     <div class="title-block">
-      <h1>แบบรายงานรับสมัครนักเรียน ปีการศึกษา 2569</h1>
+      <h1>รายชื่อนักเรียนที่สมัครนักเรียน ปีการศึกษา 2569</h1>
       <h2>โรงเรียนอรพิมพ์วิทยา อำเภอครบุรี สังกัดองค์การบริหารส่วนจังหวัดนครราชสีมา</h2>
     </div>
   </div>
 
   <!-- Date Row -->
   <div class="date-row">
-    <b>รายชื่อทั้งหมด</b>
+    <!-- <b>รายชื่อทั้งหมด</b>
     <label for="date">เลือกดูตามวันที่</label>
-    <input onchange="dateac()" type="date" name="date" id="date">
+    <input onchange="dateac()" type="date" name="date" id="date"> -->
   </div>
 
   <!-- Content -->
@@ -406,7 +406,9 @@
               <th class="col-id">เลขที่สมัคร</th>
               <th class="col-name">ชื่อ-สกุล</th>
               <th class="col-school">สถานศึกษาเดิม</th>
-              <th class="col-note">หมายเหตุ</th>
+              <th class="col-note">เเก้ไขข้อมูล</th>
+              <th class="col-note">ปริ้นใบสมัคร</th>
+              <th class="col-note">ปริ้นบัตรประจำตัวสมัคร</th>
             </tr>
           </thead>
             <tbody>
@@ -416,7 +418,9 @@
                     <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
                     <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
                     <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
-                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                    <td><b style="text-align:center"><a href="/edit/<%= std.id %>">เเก้ไขข้อมูล</a></b></td>
+                    <td><b style="text-align:center"><a href="/print/<%= std.id %>">print</a></b></td>
+                    <td><b style="text-align:center"><a href="/card/<%= std.id %>">print</a></b></td>
                 </tr>
             <% }) %>
             </tbody>
@@ -435,22 +439,26 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
+           <tr>
               <th class="col-no">ที่</th>
               <th class="col-id">เลขที่สมัคร</th>
               <th class="col-name">ชื่อ-สกุล</th>
               <th class="col-school">สถานศึกษาเดิม</th>
-              <th class="col-note">หมายเหตุ</th>
+              <th class="col-note">เเก้ไขข้อมูล</th>
+              <th class="col-note">ปริ้นใบสมัคร</th>
+              <th class="col-note">ปริ้นบัตรประจำตัวสมัคร</th>
             </tr>
           </thead>
             <tbody>
                 <% data.m41.forEach((std,index)=>{ %>
-               <tr>
+              <tr>
                     <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
                     <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
                     <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
                     <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
-                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                    <td><b style="text-align:center"><a href="/edit/<%= std.id %>">เเก้ไขข้อมูล</a></b></td>
+                    <td><b style="text-align:center"><a href="/print/<%= std.id %>">print</a></b></td>
+                    <td><b style="text-align:center"><a href="/card/<%= std.id %>">print</a></b></td>
                 </tr>
                 <% }) %>
             </tbody>
@@ -474,17 +482,21 @@
               <th class="col-id">เลขที่สมัคร</th>
               <th class="col-name">ชื่อ-สกุล</th>
               <th class="col-school">สถานศึกษาเดิม</th>
-              <th class="col-note">หมายเหตุ</th>
+              <th class="col-note">เเก้ไขข้อมูล</th>
+              <th class="col-note">ปริ้นใบสมัคร</th>
+              <th class="col-note">ปริ้นบัตรประจำตัวสมัคร</th>
             </tr>
           </thead>
             <tbody>
             <% data.m42.forEach((std,index)=>{ %>
-                <tr>
+               <tr>
                     <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
                     <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
                     <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
                     <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
-                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                    <td><b style="text-align:center"><a href="/edit/<%= std.id %>">เเก้ไขข้อมูล</a></b></td>
+                    <td><b style="text-align:center"><a href="/print/<%= std.id %>">print</a></b></td>
+                    <td><b style="text-align:center"><a href="/card/<%= std.id %>">print</a></b></td>
                 </tr>
             <% }) %>
         </tbody>
@@ -508,17 +520,21 @@
               <th class="col-id">เลขที่สมัคร</th>
               <th class="col-name">ชื่อ-สกุล</th>
               <th class="col-school">สถานศึกษาเดิม</th>
-              <th class="col-note">หมายเหตุ</th>
+              <th class="col-note">เเก้ไขข้อมูล</th>
+              <th class="col-note">ปริ้นใบสมัคร</th>
+              <th class="col-note">ปริ้นบัตรประจำตัวสมัคร</th>
             </tr>
           </thead>
             <tbody>
             <% data.m43.forEach((std,index)=>{ %>
-                 <tr>
+                <tr>
                     <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
                     <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
                     <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
                     <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
-                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                    <td><b style="text-align:center"><a href="/edit/<%= std.id %>">เเก้ไขข้อมูล</a></b></td>
+                    <td><b style="text-align:center"><a href="/print/<%= std.id %>">print</a></b></td>
+                    <td><b style="text-align:center"><a href="/card/<%= std.id %>">print</a></b></td>
                 </tr>
             <% }) %>
             </tbody>
@@ -529,17 +545,6 @@
 
   </div><!-- end content -->
 
-  <!-- Footer -->
-  <div class="footer">
-    <div class="footer-school">
-      <strong>โรงเรียนอรพิมพ์วิทยา</strong><br>
-      อำเภอครบุรี สังกัดองค์การบริหารส่วนจังหวัดนครราชสีมา<br>
-      ปีการศึกษา 2569
-    </div>
-    <button class="print-btn" onclick="window.print()">
-      🖨 พิมพ์รายงาน
-    </button>
-  </div>
 
 </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ใบสมัครนักเรียนชั้นมัธยมศึกษาปีที่ 4 เเผนการเรียน ช่างทั่วไป โรงเรียนอรพิมพ์วิทยา</title>
+    <title>เเก้ไขรายละข้อมูลผู้สมัคร <%= std.prefix %><%= std.firstname %> <%= std.lastname %></title>
     <style>
         :root {
             --primary-color: #0056b3;
@@ -133,52 +133,72 @@
 </head>
 <body>
 
-<div style="background-color:  #BCD8EC;" class="container">
+<div <% if (std.class == "1") { %>
+    style="background-color: #F9E1A8;"
+<% } else { %>
+    style="background-color:  #BCD8EC;"
+<% } %> class="container">
     <div class="header">
         <img width="100" height="100" src="https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/273132612_251595167153102_7617235967746055250_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeE7m3_1sEqqV2QGAklVQu3drKDYRiOogTWsoNhGI6iBNc1utvRSKRPIYWMxBB4HVizAQLH86yJYZxZlr-QgFyug&_nc_ohc=6W3ur_RsIs0Q7kNvwEIXfFL&_nc_oc=AdnquH93U0B2VIOYUJkiRVqMRqMv2kaUMOPlvW4JlVoNGcPWQYWY86__CDzPj6aX8zPb_N1vAGYQtwnHM2h42YTH&_nc_zt=23&_nc_ht=scontent.fnak3-1.fna&_nc_gid=Rcc8OJ9Vpkumcvy0BoBNSQ&_nc_ss=8&oh=00_AfyV1-Cm-zxxx0Tc4RJn4zBQT2CGBEUmpFSI3mdwEXdyIA&oe=69BA0471" alt="Logo">
-        <h2>ใบสมัครนักเรียนชั้นมัธยมศึกษาปีที่ 4</h2>
-        <p>แผนการเรียนรู้ช่างทั่วไป</p>
+        <h2>เเก้ไขรายละเอียดข้อมูลผู้สมัคร</h2>
+        <% if (std.room == "m1") { %>
+            <p>เเผนการเรียน ทั่วไป</p>
+        <% } else if (std.room == "m41") { %>
+            <p>เเผนการเรียน วิทยาศาสตร์-คณิตศาสตร์</p>
+        <% } else if (std.room == "m42") {  %>
+            <p>เเผนการเรียน คณิตศาสตร์-วิทยาศาสตร์เเละเทคโนโลยี</p>
+        <% } else { %>
+            <p>เเผนการเรียน ช่างทั่วไป</p>
+        <% } %>
         <p>โรงเรียนอรพิมพ์วิทยา อำเภอครบุรี จังหวัดนครราชสีมา</p>
     </div>
 
-    <form action="/register" method="POST">
+    <form action="/update/<%= std.id %>" method="POST">
         
         <fieldset>
             <legend>1. ข้อมูลส่วนตัวนักเรียน</legend>
-            <div  class="form-group">
+            <div class="form-group">
                 <div class="field" style="flex: 0.5;">
                     <label for="prefix">คำนำหน้าชื่อ</label>
                     <select name="prefix" id="prefix" required>
-                        <option value=""></option>
-                        <option value="นาย">นาย</option>
-                        <option value="นางสาว">นางสาว</option>
+                        <option value="<%= std.prefix %>"><%= std.prefix %></option>
+                        <option value="เด็กชาย">เด็กชาย</option>
+                        <option value="เด็กหญิง">เด็กหญิง</option>
                     </select>
                 </div>
                 <div class="field">
                     <label for="firstname">ชื่อ</label>
-                    <input name="firstname" id="firstname" type="text" placeholder="ชื่อจริง" required>
+                    <input value="<%= std.firstname %>" name="firstname" id="firstname" type="text" placeholder="ชื่อจริง" required>
                 </div>
                 <div class="field">
                     <label for="lastname">นามสกุล</label>
-                    <input name="lastname" id="lastname" type="text" placeholder="นามสกุล" required>
+                    <input value="<%= std.lastname %>" name="lastname" id="lastname" type="text" placeholder="นามสกุล" required>
                 </div>
                  <div class="field">
-                   <label for="class">เเผนการเรียน</label>
-                    <input type="text" value="ช่างทั่วไป" readonly>
-                    <input type="hidden" name="room" value="m43">
-                    <input type="hidden" name="class" value="4">
+                    <label for="class">เเผนการเรียน</label>
+                    <input type="text" value="<% if (std.room == "m1") { %>
+                        ทั่วไป
+                    <% } else if (std.room == "m41") { %>
+                        วิทยาศาสตร์-คณิตศาสตร์
+                    <% } else if (std.room == "m42") { %>
+                        คณิตศาสตร์-วิทยาศาสตร์เเละเทคโนโลยี
+                    <% } else { %>
+                        ช่างทั่วไป
+                    <% } %>" readonly>
+                    <input type="hidden" name="room" value="<%= std.room %>">
+                    <input type="hidden" name="class" value="<%= std.class %>">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="field">
                     <label for="bd">เกิดวันที่</label>
-                    <input type="number" name="bd" id="bd" min="1" max="31" placeholder="วว" required>
+                    <input value="<%= std.bd %>" type="number" name="bd" id="bd" min="1" max="31" placeholder="วว" required>
                 </div>
                 <div class="field">
                     <label for="mb">เดือน</label>
                     <select name="mb" id="mb" required>
-                        <option value=""></option>
+                        <option value="<%= std.mb %>"><%= std.mb %></option>
                         <option value="มกราคม">มกราคม</option>
                         <option value="กุมภาพันธ์">กุมภาพันธ์</option>
                         <option value="มีนาคม">มีนาคม</option>
@@ -195,27 +215,27 @@
                 </div>
                 <div class="field">
                     <label for="yb">พ.ศ.</label>
-                    <input type="number" id="yb" name="yb" min="2540" max="2560" placeholder="พ.ศ." required>
+                    <input value="<%= std.yb %>" type="number" id="yb" name="yb" min="2540" max="2560" placeholder="พ.ศ." required>
                 </div>
             </div>
 
             <div class="field">
                 <label for="pin">เลขประจำตัวประชาชน (13 หลัก)</label>
-                <input type="text" id="pin" name="pin" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" placeholder="X-XXXX-XXXXX-XX-X" required>
+                <input value="<%= std.pin %>" type="text" id="pin" name="pin" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" placeholder="X-XXXX-XXXXX-XX-X" required>
             </div>
             <div class="field">
                     <label for="sold">ผู้สมัครจบการศึกษาจากโรงเรียน</label>
-                    <input placeholder="พิมพ์คำว่าโรงเรียนด้วย เช่น โรงเรียนอรพิมพ์วิทยา" type="text" name="sold" id="sold" required>
+                    <input value="<%= std.sold %>" type="text" name="sold" id="sold" required>
                 </div>
                 <div class="field">
                     <label for="sd1">ตำบล</label>
-                    <input type="text" name="sd1" id="sd1" required>
+                    <input value="<%= std.sd1 %>" type="text" name="sd1" id="sd1" required>
                 </div><div class="field">
                     <label for="sd2">อำเภอ</label>
-                    <input type="text" name="sd2" id="sd2" required>
+                    <input value="<%= std.sd2 %>" type="text" name="sd2" id="sd2" required>
                 </div><div class="field">
                     <label for="spro">จังหวัด</label>
-                    <input type="text" name="spro" id="spro" required>
+                    <input value="<%= std.spro %>" type="text" name="spro" id="spro" required>
                 </div>
         </fieldset>
 
@@ -224,39 +244,40 @@
             <div class="form-group">
                 <div class="field">
                     <label for="housenum">บ้านเลขที่</label>
-                    <input type="text" name="housenum" id="housenum" required>
+                    <input value="<%= std.housenum %>" type="text" name="housenum" id="housenum" required>
                 </div>
                 <div class="field">
                     <label for="moo">หมู่ที่</label>
-                    <input type="number" name="moo" id="moo">
+                    <input value="<%= std.moo %>" type="number" name="moo" id="moo">
                 </div>
                 <div class="field">
                     <label for="village">หมู่บ้าน/ชุมชน</label>
-                    <input type="text" name="village" id="village">
+                    <input value="<%= std.village %>" type="text" name="village" id="village">
                 </div>
             </div>
             <div class="form-group">
                 <div class="field">
                     <label for="district1">ตำบล</label> 
-                    <input type="text" name="district1" id="district1" required>
+                    <input value="<%= std.district1 %>" type="text" name="district1" id="district1" required>
                 </div>
                 <div class="field">
                     <label for="district2">อำเภอ</label>
-                    <input type="text" name="district2" id="district2" required>
+                    <input value="<%= std.district2 %>" type="text" name="district2" id="district2" required>
                 </div>
                 <div class="field">
                     <label for="province">จังหวัด</label>
-                    <input type="text" name="province" id="province" required>
+                    <input value="<%= std.province %>" type="text" name="province" id="province" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="field">
                     <label for="zipcode">รหัสไปรษณีย์</label>
-                    <input type="text" name="zipcode" id="zipcode" pattern="[0-9]{5}" required>
+                    <input value="<%= std.zipcode %>" type="text" name="zipcode" id="zipcode" pattern="[0-9]{5}" required>
                 </div>
                 <div class="field">
                     <label for="tel">เบอร์โทรศัพท์นักเรียน</label>
                     <input 
+                        value="<%= std.tel %>"
                         type="text"
                         name="tel"
                         pattern="[0-9]{10}"
@@ -271,15 +292,16 @@
             <div class="form-group">
                 <div class="field">
                     <label for="fn">ชื่อบิดา</label>
-                    <input type="text" name="fn" id="fn" required>
+                    <input value="<%= std.fn %>" type="text" name="fn" id="fn" required>
                 </div>
                 <div class="field">
                     <label for="fo">อาชีพ</label>
-                    <input type="text" name="fo" id="fo" required>
+                    <input value="<%= std.fo %>" type="text" name="fo" id="fo" required>
                 </div>
                 <div class="field">
                     <label for="ftel">เบอร์โทรศัพท์บิดา</label>
                     <input 
+                        value="<%= std.ftel %>"
                         type="text"
                         name="ftel"
                         pattern="[0-9]{10}"
@@ -291,15 +313,16 @@
             <div class="form-group">
                 <div class="field">
                     <label for="mn">ชื่อมารดา</label>
-                    <input type="text" name="mn" id="mn" required>
+                    <input value="<%= std.mn %>" type="text" name="mn" id="mn" required>
                 </div>
                 <div class="field">
                     <label for="mo">อาชีพ</label>
-                    <input type="text" name="mo" id="mo" required>
+                    <input value="<%= std.mo %>" type="text" name="mo" id="mo" required>
                 </div>
                 <div class="field">
                     <label for="mtel">เบอร์โทรศัพท์มารดา</label>
                     <input 
+                        value="<%= std.mtel %>"
                         type="text"
                         name="mtel"
                         pattern="[0-9]{10}"
@@ -314,35 +337,35 @@
             <legend>4. ข้อมูลเพิ่มเติม</legend>
             <label>ปัจจุบันอาศัยอยู่กับ:</label>
             <div class="radio-group">
-                <label class="radio-item"><input value="บิดา มารดา" type="radio" name="shomefm" required onclick="toggleOtherInput(false)"> บิดา และมารดา</label>
-                <label class="radio-item"><input value="บิดา" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> บิดา</label>
-                <label class="radio-item"><input value="มารดา" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> มารดา</label>
-                <label class="radio-item"><input value="ญาติพี่น้อง" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> ญาติพี่น้อง</label>
+                <label   class="radio-item"><input <% if (std.shomefm == 'บิดา มารดา') { %> checked <% } %> value="บิดา มารดา" type="radio" name="shomefm" required onclick="toggleOtherInput(false)"> บิดา และมารดา</label>
+                <label  class="radio-item"><input <% if (std.shomefm == 'บิดา') { %> checked <% } %> value="บิดา" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> บิดา</label>
+                <label  class="radio-item"><input <% if (std.shomefm == 'มารดา') { %> checked <% } %> value="มารดา" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> มารดา</label>
+                <label  class="radio-item"><input <% if (std.shomefm == 'ญาติพี่น้อง') { %> checked <% } %> value="ญาติพี่น้อง" type="radio" name="shomefm" onclick="toggleOtherInput(false)"> ญาติพี่น้อง</label>
                 
                 <label class="radio-item">
-                    <input value="อื่นๆ" type="radio" name="shomefm" id="radio_other" onclick="toggleOtherInput(true)"> อื่นๆ
+                    <input <% if (std.shomefm !== 'บิดา มารดา' && std.shomefm !== 'บิดา' && std.shomefm !== 'มารดา' && std.shomefm !== 'ญาติพี่น้อง') { %> checked <% } %> value="อื่นๆ" type="radio" name="shomefm" id="radio_other" onclick="toggleOtherInput(true)"> อื่นๆ
                 </label>
 
                 <div id="other_input_container" style="display: none; margin-top: 10px; margin-left: 25px;">
                     <input type="text" id="shomefm_other" placeholder="โปรดระบุรายละเอียด..." 
                         style="width: 200px;" 
-                        oninput="document.getElementById('radio_other').value = this.value">
+                        oninput="document.getElementById('radio_other').value = this.value" value="<%= std.shomefm %>">
                 </div>
             </div>
 
             <div class="form-group" style="margin-top:20px;">
                 <div class="field">
                     <label for="moneyfm">ผู้อุปการะด้านการเงิน</label>
-                    <input type="text" name="moneyfm" id="moneyfm" placeholder="เช่น บิดา, มารดา, ลุง" required>
+                    <input value="<%= std.moneyfm %>" type="text" name="moneyfm" id="moneyfm" placeholder="เช่น บิดา, มารดา, ลุง" required>
                 </div>
                 <div class="field">
                     <label for="skill">ความสามารถพิเศษ</label>
-                    <input type="text" name="skill" id="skill" placeholder="ดนตรี, กีฬา, ฯลฯ">
+                    <input value="<%= std.skill %>" type="text" name="skill" id="skill" placeholder="ดนตรี, กีฬา, ฯลฯ">
                 </div>
             </div>
         </fieldset>
 
-        <button type="submit" class="btn-submit">ส่งใบสมัครข้อมูล</button>
+        <button type="submit" class="btn-submit">เเก้ไขข้อมูล</button>
     </form>
 </div>
 

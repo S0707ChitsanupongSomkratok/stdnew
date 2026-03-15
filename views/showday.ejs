@@ -383,9 +383,11 @@
 
   <!-- Date Row -->
   <div class="date-row">
-    <b>รายชื่อทั้งหมด</b>
-    <label for="date">เลือกดูตามวันที่</label>
-    <input onchange="dateac()" type="date" name="date" id="date">
+    <label>ประจำวันที่:</label>
+    <!-- <input type="date" id="reportDate" value="<%= date %>"> -->
+     <b><%= date %></b>
+     <input onchange="dateac()" type="date" name="date" id="date">
+     <b><a href="/showstdnew">ดูรายชื่อทั้งหมด</a></b>
   </div>
 
   <!-- Content -->
@@ -546,7 +548,7 @@
 <script>
   // Set today's date
   const today = new Date().toISOString().split('T')[0];
-//   document.getElementById('reportDate').value = today;
+  document.getElementById('reportDate').value = today;
 
   function addRow(tbodyId) {
     const tbody = document.getElementById(tbodyId);

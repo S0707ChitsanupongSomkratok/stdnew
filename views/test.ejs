@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบรายงานรับสมัครนักเรียน ปีการศึกษา 2569</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2e5a;
+    --gold: #c9a227;
+    --gold-light: #f0d060;
+    --blue-mid: #2d5082;
+    --blue-light: #4a7dbf;
+    --cream: #fdf8ee;
+    --white: #ffffff;
+    --gray-light: #f4f6f9;
+    --border: #c5cfe0;
+    --text-dark: #1a2040;
+    --text-mid: #3a4a6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--gray-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* Page wrapper */
+  .page-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    background: var(--white);
+    box-shadow: 0 8px 40px rgba(26,46,90,0.13);
+    border-radius: 4px;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Header banner */
+  .header-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 60%, var(--blue-light) 100%);
+    padding: 36px 40px 28px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-banner::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(201,162,39,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 30%;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  /* Logo circle */
+  .logo-circle {
+    width: 90px; height: 90px;
+    background: var(--white);
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    overflow: hidden;
+    position: relative; z-index: 1;
+  }
+
+  .logo-circle img {
+    width: 82px; height: 82px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .logo-circle .logo-placeholder {
+    font-size: 11px;
+    color: var(--navy);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    padding: 6px;
+  }
+
+  /* Title block */
+  .title-block {
+    position: relative; z-index: 1;
+  }
+
+  .title-block h1 {
+    font-family: 'Prompt', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.5px;
+    line-height: 1.45;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .title-block h2 {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* Date row */
+  .date-row {
+    background: linear-gradient(90deg, var(--gold) 0%, #e8c040 100%);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .date-row label {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+  }
+
+  .date-row input[type="date"] {
+    border: none;
+    background: rgba(255,255,255,0.6);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    color: var(--navy);
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .date-row input[type="date"]:focus {
+    background: rgba(255,255,255,0.9);
+  }
+
+  /* Main content */
+  .content {
+    padding: 30px 36px 40px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 36px;
+    animation: slideUp 0.5s ease both;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .section-bar {
+    width: 5px;
+    height: 28px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--navy) 100%);
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Prompt', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.4;
+  }
+
+  .section-badge {
+    background: var(--navy);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Table */
+  .table-wrap {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 10px rgba(26,46,90,0.07);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead tr {
+    background: linear-gradient(90deg, var(--navy) 0%, var(--blue-mid) 100%);
+  }
+
+  thead th {
+    padding: 11px 14px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--white);
+    text-align: center;
+    letter-spacing: 0.3px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+
+  thead th:last-child { border-right: none; }
+
+  thead th.col-no { width: 56px; }
+  thead th.col-id { width: 130px; }
+  thead th.col-name { }
+  thead th.col-school { width: 180px; }
+  thead th.col-note { width: 120px; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody tr:nth-child(even) { background: var(--gray-light); }
+
+  tbody tr:hover { background: #e8f0fc; }
+
+  tbody td {
+    padding: 0;
+    border-right: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody td:last-child { border-right: none; }
+
+  tbody td input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 10px 12px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13.5px;
+    color: var(--text-dark);
+    outline: none;
+    text-align: center;
+    min-height: 42px;
+  }
+
+  tbody td input:focus {
+    background: #ddeeff;
+  }
+
+  tbody td input.left { text-align: left; }
+
+  /* Add row button */
+  .add-row-btn {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1.5px dashed var(--blue-light);
+    color: var(--blue-mid);
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .add-row-btn:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--gold-light);
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 2px solid var(--border);
+    padding: 20px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream);
+  }
+
+  .footer-school {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .footer-school strong {
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  .print-btn {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+    color: var(--gold-light);
+    border: none;
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 3px 12px rgba(26,46,90,0.2);
+    transition: all 0.2s;
+  }
+
+  .print-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(26,46,90,0.28);
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .page-wrapper { box-shadow: none; margin: 0; }
+    .print-btn, .add-row-btn { display: none; }
+    .header-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .date-row { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    tbody td input { min-height: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <div class="header-banner">
+    <div class="logo-circle">
+      <div class="logo-placeholder">
+        <img src="https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/273132612_251595167153102_7617235967746055250_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeE7m3_1sEqqV2QGAklVQu3drKDYRiOogTWsoNhGI6iBNc1utvRSKRPIYWMxBB4HVizAQLH86yJYZxZlr-QgFyug&_nc_ohc=6W3ur_RsIs0Q7kNvwEIXfFL&_nc_oc=AdnquH93U0B2VIOYUJkiRVqMRqMv2kaUMOPlvW4JlVoNGcPWQYWY86__CDzPj6aX8zPb_N1vAGYQtwnHM2h42YTH&_nc_zt=23&_nc_ht=scontent.fnak3-1.fna&_nc_gid=Rcc8OJ9Vpkumcvy0BoBNSQ&_nc_ss=8&oh=00_AfyV1-Cm-zxxx0Tc4RJn4zBQT2CGBEUmpFSI3mdwEXdyIA&oe=69BA0471" alt="">
+      </div>
+    </div>
+    <div class="title-block">
+      <h1>แบบรายงานรับสมัครนักเรียน ปีการศึกษา 2569</h1>
+      <h2>โรงเรียนอรพิมพ์วิทยา อำเภอครบุรี สังกัดองค์การบริหารส่วนจังหวัดนครราชสีมา</h2>
+    </div>
+  </div>
+
+  <!-- Date Row -->
+  <div class="date-row">
+    <b>รายชื่อทั้งหมด</b>
+    <label for="date">เลือกดูตามวันที่</label>
+    <input onchange="dateac()" type="date" name="date" id="date">
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Section 1 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <div class="section-title">ชั้นมัธยมศึกษาปีที่ 1 แผนการเรียน ทั่วไป</div>
+        <span class="section-badge">ม.1</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-no">ที่</th>
+              <th class="col-id">เลขที่สมัคร</th>
+              <th class="col-name">ชื่อ-สกุล</th>
+              <th class="col-school">สถานศึกษาเดิม</th>
+              <th class="col-note">หมายเหตุ</th>
+            </tr>
+          </thead>
+            <tbody>
+                <% data.m1.forEach((std,index)=>{ %>
+                <tr>
+                    <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
+                    <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
+                    <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+      </div>
+      <!-- <button class="add-row-btn" onclick="addRow('tbody-1')">＋ เพิ่มแถว</button> -->
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <div class="section-title">ชั้นมัธยมศึกษาปีที่ 4 แผนการเรียน วิทยาศาสตร์-คณิตศาสตร์</div>
+        <span class="section-badge">ม.4</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-no">ที่</th>
+              <th class="col-id">เลขที่สมัคร</th>
+              <th class="col-name">ชื่อ-สกุล</th>
+              <th class="col-school">สถานศึกษาเดิม</th>
+              <th class="col-note">หมายเหตุ</th>
+            </tr>
+          </thead>
+            <tbody>
+                <% data.m41.forEach((std,index)=>{ %>
+               <tr>
+                    <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
+                    <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
+                    <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+      </div>
+      <!-- <button class="add-row-btn" onclick="addRow('tbody-2')">＋ เพิ่มแถว</button> -->
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <div class="section-title">ชั้นมัธยมศึกษาปีที่ 4 แผนการเรียน คณิตศาสตร์-วิทยาศาสตร์และเทคโนโลยี</div>
+        <span class="section-badge">ม.4</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-no">ที่</th>
+              <th class="col-id">เลขที่สมัคร</th>
+              <th class="col-name">ชื่อ-สกุล</th>
+              <th class="col-school">สถานศึกษาเดิม</th>
+              <th class="col-note">หมายเหตุ</th>
+            </tr>
+          </thead>
+            <tbody>
+            <% data.m42.forEach((std,index)=>{ %>
+                <tr>
+                    <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
+                    <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
+                    <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                </tr>
+            <% }) %>
+        </tbody>
+            </table>
+      </div>
+      <!-- <button class="add-row-btn" onclick="addRow('tbody-3')">＋ เพิ่มแถว</button> -->
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <div class="section-title">ชั้นมัธยมศึกษาปีที่ 4 แผนการเรียน ช่างทั่วไป</div>
+        <span class="section-badge">ม.4</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-no">ที่</th>
+              <th class="col-id">เลขที่สมัคร</th>
+              <th class="col-name">ชื่อ-สกุล</th>
+              <th class="col-school">สถานศึกษาเดิม</th>
+              <th class="col-note">หมายเหตุ</th>
+            </tr>
+          </thead>
+            <tbody>
+            <% data.m43.forEach((std,index)=>{ %>
+                 <tr>
+                    <td><input readonly value="<%= index+1 %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.id %>" style="text-align:center"></td>
+                    <td><input readonly class="left" value="<%= std.prefix %><%= std.firstname %> <%= std.lastname %> " style="text-align:center"></td>
+                    <td><input readonly value="<%= std.sold %>" style="text-align:center"></td>
+                    <td><input readonly value="<%= std.note %>" style="text-align:center"></td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+      </div>
+      <!-- <button class="add-row-btn" onclick="addRow('tbody-4')">＋ เพิ่มแถว</button> -->
+    </div>
+
+  </div><!-- end content -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-school">
+      <strong>โรงเรียนอรพิมพ์วิทยา</strong><br>
+      อำเภอครบุรี สังกัดองค์การบริหารส่วนจังหวัดนครราชสีมา<br>
+      ปีการศึกษา 2569
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨 พิมพ์รายงาน
+    </button>
+  </div>
+
+</div>
+
+<script>
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+//   document.getElementById('reportDate').value = today;
+
+  function addRow(tbodyId) {
+    const tbody = document.getElementById(tbodyId);
+    const rowCount = tbody.rows.length + 1;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input value="${rowCount}" style="text-align:center"></td>
+      <td><input placeholder=""></td>
+      <td><input class="left" placeholder=""></td>
+      <td><input placeholder=""></td>
+      <td><input placeholder=""></td>
+    `;
+    tbody.appendChild(tr);
+    // Focus on name field
+    tr.querySelectorAll('input')[2].focus();
+  }
+
+  function dateac() {
+    const dateDom = document.querySelector("#date");
+    const date = dateDom.value;
+    
+    window.location = "/showday/" + date;
+  }
+</script>
+</body>
+</html>
