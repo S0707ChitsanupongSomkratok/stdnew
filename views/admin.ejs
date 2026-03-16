@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรแกรมรับสมัครนักเรียนโรงเรียนอรพิมพ์วิทยา</title>
+    <style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap');
+  .reg-wrap { font-family: 'Sarabun', sans-serif; min-height: 100vh; background: linear-gradient(160deg, #0d1f5c 0%, #1a3a8f 50%, #0d1f5c 100%); display: flex; align-items: center; justify-content: center; padding: 32px 16px; }
+  .reg-card { width: 100%; max-width: 520px; background: rgba(255,255,255,0.97); border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.35); }
+  .reg-header { background: linear-gradient(135deg, #0d1f5c 0%, #1a3a8f 60%, #1e4db7 100%); padding: 36px 32px 28px; display: flex; flex-direction: column; align-items: center; gap: 0; position: relative; overflow: hidden; }
+  .reg-header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(200,168,50,0.12); }
+  .reg-header::after { content: ''; position: absolute; bottom: -60px; left: -30px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+  .logo-ring { width: 110px; height: 110px; border-radius: 50%; background: white; padding: 5px; box-shadow: 0 0 0 3px #c8a832, 0 8px 24px rgba(0,0,0,0.3); position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .logo-inner-bg { width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #2244aa, #0b1a55); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+  .logo-statue { font-size: 40px; line-height: 1; }
+  .logo-label { font-size: 7px; color: #c8a832; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .gold-divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #c8a832, transparent); margin: 18px 0 12px; }
+  .header-title { font-size: 1.25rem; font-weight: 700; color: white; text-align: center; line-height: 1.5; position: relative; z-index: 1; }
+  .header-sub { font-size: 0.95rem; color: rgba(255,255,255,0.65); margin-top: 4px; position: relative; z-index: 1; }
+  .year-badge { margin-top: 12px; background: linear-gradient(90deg, #c8a832, #e8c84a); color: #3a2800; font-size: 0.85rem; font-weight: 700; padding: 5px 20px; border-radius: 50px; letter-spacing: 1px; position: relative; z-index: 1; }
+  .reg-menu { padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 10px; }
+  .menu-item { display: flex; align-items: center; gap: 16px; background: #f5f7ff; border: 1.5px solid #dde3f8; border-radius: 14px; padding: 16px 20px; cursor: pointer; transition: all 0.22s cubic-bezier(0.34,1.56,0.64,1); text-decoration: none; }
+  .menu-item:hover { background: #1a3a8f; border-color: #1a3a8f; transform: translateY(-2px) scale(1.01); box-shadow: 0 8px 24px rgba(26,58,143,0.25); }
+  .menu-item:hover .menu-icon { background: rgba(255,255,255,0.2); color: white; }
+  .menu-item:hover .menu-text { color: white; }
+  .menu-item:hover .menu-arrow { color: rgba(255,255,255,0.7); }
+  .menu-item:active { transform: scale(0.99); }
+  .menu-icon { width: 44px; height: 44px; border-radius: 12px; background: #e0e6ff; color: #1a3a8f; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; transition: all 0.22s; }
+  .menu-text { flex: 1; font-size: 1.05rem; font-weight: 600; color: #1a2f6e; transition: color 0.22s; }
+  .menu-arrow { color: #b0bbd4; font-size: 18px; transition: color 0.22s; }
+  .reg-footer { text-align: center; padding: 12px 24px 20px; border-top: 1px solid #eef0f8; }
+  .reg-footer p { font-size: 0.8rem; color: #aaa; }
+</style>
+</head>
+<body>
+    <div class="reg-wrap">
+  <div class="reg-card">
+    <div class="reg-header">
+      <div class="logo-ring">
+        <div class="logo-inner-bg">
+          <img width="120px" height="120px" src="https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/273132612_251595167153102_7617235967746055250_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeE7m3_1sEqqV2QGAklVQu3drKDYRiOogTWsoNhGI6iBNc1utvRSKRPIYWMxBB4HVizAQLH86yJYZxZlr-QgFyug&_nc_ohc=6W3ur_RsIs0Q7kNvwEIXfFL&_nc_oc=AdnquH93U0B2VIOYUJkiRVqMRqMv2kaUMOPlvW4JlVoNGcPWQYWY86__CDzPj6aX8zPb_N1vAGYQtwnHM2h42YTH&_nc_zt=23&_nc_ht=scontent.fnak3-1.fna&_nc_gid=Rcc8OJ9Vpkumcvy0BoBNSQ&_nc_ss=8&oh=00_AfyV1-Cm-zxxx0Tc4RJn4zBQT2CGBEUmpFSI3mdwEXdyIA&oe=69BA0471" alt="">
+        </div>
+      </div>
+      <div class="gold-divider"></div>
+      <div class="header-title">โปรแกรมรับสมัครนักเรียน</div>
+      <div class="header-sub">โรงเรียนอรพิมพ์วิทยา องค์การบริหารส่วนจังหวัดนครราชสีมา</div>
+    
+      <% const now = new Date(); %>
+      <% const y = now.getFullYear() + 543; %>
+      
+      <div class="year-badge">ประจำปีการศึกษา <%= y %></div>
+
+    </div>
+
+    <div class="reg-menu">
+      <div class="menu-item" onclick="linkTo('a')">
+        <div class="menu-icon">📝</div>
+        <div class="menu-text">รับสมัครนักเรียนใหม่</div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="linkTo('b')">
+        <div class="menu-icon">🖨️</div>
+        <div class="menu-text">แก้ไขข้อมูล พิมพ์ใบสมัคร พิมพ์บัตรผู้สมัคร</div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="linkTo('c')">
+        <div class="menu-icon">📅</div>
+        <div class="menu-text">รายงานรับสมัครรายวัน</div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="linkTo('d')">
+        <div class="menu-icon">🏫</div>
+        <div class="menu-text">รายงานรับสมัครแยกตามโรงเรียนเดิม</div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-item" onclick="linkTo('e')">
+        <div class="menu-icon">📊</div>
+        <div class="menu-text">รายงานรับสมัครทั้งหมด</div>
+        <div class="menu-arrow">›</div>
+      </div>
+    </div>
+
+    <div class="reg-footer">
+      <p>ระบบรับสมัครออนไลน์โรงเรียนอรพิมพ์วิทยา &copy; <%= y %></p>
+    </div>
+  </div>
+</div>
+
+    <script>
+        function linkTo(x) {
+            if (x == "a") {
+                window.location = "/";
+            } else if (x == "b") {
+                window.location = "/stdor";
+            } else if (x == "c") {
+                const now = new Date();
+                const d = String(now.getDate()).padStart(2, '0');
+                const m = String(now.getMonth() + 1).padStart(2, '0');
+                const y = now.getFullYear() + 543;
+                const h = String(now.getHours()).padStart(2, '0');
+                const min = String(now.getMinutes()).padStart(2, '0');
+                
+                const fullDate = `${d}-${m}-${y}-${h}:${min}`;
+                const datere = `${y - 543}-${m}-${d}`;
+
+                window.location = "/showday/" + datere;
+            } else if (x == "d") {
+                alert("ยังไม่ได้ทำเลยครับ")
+            } else if (x == "e") {
+                window.location = "/showstdnew";
+            }
+        }
+    </script>
+
+    
+</body>
+</html>
+
+
+
+

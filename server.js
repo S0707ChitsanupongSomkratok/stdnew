@@ -426,6 +426,10 @@ app.get('/stdor', (req, res) => {
 
     });
 
+});
+
+app.get('/admin', (req, res) => {
+    res.render('admin.ejs');
 })
 
 app.listen(PORT, () => {

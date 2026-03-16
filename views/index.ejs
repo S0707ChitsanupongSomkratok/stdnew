@@ -1,153 +1,502 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบรับสมัครนักเรียน - โรงเรียนอรพิมพ์วิทยา</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0056b3;
-            --secondary-color: #28a745;
-            --bg-color: #f0f2f5;
-            --text-dark: #333;
+            --navy: #0a2463;
+            --navy-mid: #1a3a7a;
+            --navy-light: #2c5fa8;
+            --gold: #c8973a;
+            --gold-light: #e8b95a;
+            --gold-pale: #faf3e4;
+            --cream: #fdfaf4;
+            --text-dark: #1a1a2e;
+            --text-mid: #4a4a6a;
+            --text-light: #8888aa;
+            --green: #1a6b4a;
+            --green-mid: #22855c;
+            --divider: rgba(10,36,99,0.12);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--cream);
             min-height: 100vh;
+            color: var(--text-dark);
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(10,36,99,0.06) 0%, transparent 70%),
+                repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(10,36,99,0.03) 79px, rgba(10,36,99,0.03) 80px),
+                repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(10,36,99,0.03) 79px, rgba(10,36,99,0.03) 80px);
         }
 
-        .container {
-            max-width: 900px;
-            width: 90%;
-            text-align: center;
-            padding: 40px 20px;
+        /* ── Header Banner ── */
+        .header-banner {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* --- ส่วนที่เพิ่ม/ปรับปรุงสำหรับโลโก้ --- */
-        .logo-wrapper {
-            margin-bottom: 20px;
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
-        .school-logo {
-            width: 120px; /* ปรับขนาดโลโก้ที่นี่ */
-            height: auto;
+        .header-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 36px 24px 32px;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            position: relative;
+        }
+
+        .logo-frame {
+            flex-shrink: 0;
+            width: 96px;
+            height: 96px;
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 4px solid #fff;
-            transition: transform 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            border: 2.5px solid var(--gold-light);
+            padding: 4px;
+            backdrop-filter: blur(4px);
         }
 
-        .school-logo:hover {
-            transform: scale(1.05); /* ให้โลโก้ขยับเล็กน้อยเวลาเมาส์ชี้ */
-        }
-        /* ---------------------------------- */
-
-        h1 {
-            color: var(--primary-color);
-            margin: 10px 0;
-            font-size: 1.8rem;
+        .logo-frame img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
         }
 
-        .subtitle {
-            color: #666;
-            margin-bottom: 40px;
+        .header-text { color: #fff; }
+
+        .school-name {
+            font-family: 'Noto Serif Thai', serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            line-height: 1.3;
+            margin-bottom: 5px;
         }
 
-        .selection-grid {
+        .school-sub {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.65);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        /* gold divider line */
+        .gold-rule {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, transparent 100%);
+        }
+
+        /* ── Page title strip ── */
+        .page-title-strip {
+            background: #fff;
+            border-bottom: 1px solid var(--divider);
+            padding: 18px 24px;
+        }
+
+        .page-title-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-year {
+            background: var(--gold-pale);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .page-title-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* ── Main content ── */
+        .main {
+            max-width: 860px;
+            margin: 36px auto 60px;
+            padding: 0 24px;
+        }
+
+        /* ── Section label ── */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 16px;
+        }
+
+        .section-label-line {
+            flex: 1;
+            height: 1px;
+            background: var(--divider);
+        }
+
+        .section-label-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ── Cards ── */
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 16px;
+        }
+
+        .card-grid.cols-1 { grid-template-columns: 1fr; }
+        .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+        @media (max-width: 640px) {
+            .card-grid.cols-3 { grid-template-columns: 1fr; }
         }
 
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
+            background: #fff;
+            border: 1px solid var(--divider);
+            border-radius: 12px;
             text-decoration: none;
-            color: var(--text-dark);
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            color: inherit;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            border: 2px solid transparent;
+            gap: 20px;
+            padding: 22px 24px;
+            transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+            position: relative;
+            overflow: hidden;
         }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+        }
+
+        .card.green::after  { background: var(--green); }
+        .card.navy::after   { background: var(--navy); }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-color: var(--primary-color);
+            box-shadow: 0 8px 28px rgba(10,36,99,0.1);
+            transform: translateY(-2px);
+            border-color: rgba(10,36,99,0.2);
         }
 
-        .m1 { border-top: 6px solid var(--secondary-color); }
-        .m4 { border-top: 6px solid var(--primary-color); }
-
-        .m4-label {
-            grid-column: 1 / -1;
-            text-align: left;
-            margin: 20px 0 10px 0;
-            font-weight: bold;
-            color: #555;
-            border-left: 4px solid var(--primary-color);
-            padding-left: 10px;
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
+        .card.green .card-icon { background: rgba(26,107,74,0.08); }
+        .card.navy  .card-icon { background: rgba(10,36,99,0.07); }
+
+        .card-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .card.green .card-icon svg { color: var(--green-mid); }
+        .card.navy  .card-icon svg { color: var(--navy-light); }
+
+        .card-body { flex: 1; min-width: 0; }
+
+        .card-title {
+            font-family: 'Noto Serif Thai', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .card-desc {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .card-arrow {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--divider);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .card:hover .card-arrow {
+            background: var(--navy);
+            border-color: var(--navy);
+        }
+
+        .card:hover .card-arrow svg { color: #fff; }
+
+        .card-arrow svg {
+            width: 13px;
+            height: 13px;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        /* ── Notice box ── */
+        .notice {
+            background: rgba(200,151,58,0.06);
+            border: 1px solid rgba(200,151,58,0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .notice-icon {
+            color: var(--gold);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .notice-text {
+            font-size: 0.84rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        .notice-text strong {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        /* ── Spacer ── */
+        .section-gap { margin-top: 32px; }
+
+        /* ── Footer ── */
         footer {
-            margin-top: 50px;
-            font-size: 0.85rem;
-            color: #888;
+            text-align: center;
+            padding: 28px 24px;
+            border-top: 1px solid var(--divider);
+            margin-top: 20px;
         }
+
+        .footer-logo-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .footer-logo-row img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .footer-school-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .footer-address {
+            font-size: 0.76rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ── Animate in ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-inner   { animation: fadeUp 0.5s ease both; }
+        .page-title-inner { animation: fadeUp 0.5s 0.1s ease both; }
+        .notice         { animation: fadeUp 0.5s 0.15s ease both; }
+        .card-grid.cols-1 .card { animation: fadeUp 0.5s 0.2s ease both; }
+        .card-grid.cols-3 .card:nth-child(1) { animation: fadeUp 0.5s 0.25s ease both; }
+        .card-grid.cols-3 .card:nth-child(2) { animation: fadeUp 0.5s 0.32s ease both; }
+        .card-grid.cols-3 .card:nth-child(3) { animation: fadeUp 0.5s 0.39s ease both; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-wrapper">
-        <img src="https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/273132612_251595167153102_7617235967746055250_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeE7m3_1sEqqV2QGAklVQu3drKDYRiOogTWsoNhGI6iBNc1utvRSKRPIYWMxBB4HVizAQLH86yJYZxZlr-QgFyug&_nc_ohc=6W3ur_RsIs0Q7kNvwEIXfFL&_nc_oc=AdnquH93U0B2VIOYUJkiRVqMRqMv2kaUMOPlvW4JlVoNGcPWQYWY86__CDzPj6aX8zPb_N1vAGYQtwnHM2h42YTH&_nc_zt=23&_nc_ht=scontent.fnak3-1.fna&_nc_gid=Rcc8OJ9Vpkumcvy0BoBNSQ&_nc_ss=8&oh=00_AfyV1-Cm-zxxx0Tc4RJn4zBQT2CGBEUmpFSI3mdwEXdyIA&oe=69BA0471" 
-             alt="โลโก้โรงเรียนอรพิมพ์วิทยา" 
-             class="school-logo">
+<!-- ════════════ HEADER ════════════ -->
+<div class="header-banner">
+    <div class="header-inner">
+        <div class="logo-frame">
+            <img src="https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/273132612_251595167153102_7617235967746055250_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeE7m3_1sEqqV2QGAklVQu3drKDYRiOogTWsoNhGI6iBNc1utvRSKRPIYWMxBB4HVizAQLH86yJYZxZlr-QgFyug&_nc_ohc=6W3ur_RsIs0Q7kNvwEIXfFL&_nc_oc=AdnquH93U0B2VIOYUJkiRVqMRqMv2kaUMOPlvW4JlVoNGcPWQYWY86__CDzPj6aX8zPb_N1vAGYQtwnHM2h42YTH&_nc_zt=23&_nc_ht=scontent.fnak3-1.fna&_nc_gid=Rcc8OJ9Vpkumcvy0BoBNSQ&_nc_ss=8&oh=00_AfyV1-Cm-zxxx0Tc4RJn4zBQT2CGBEUmpFSI3mdwEXdyIA&oe=69BA0471"
+                 alt="โลโก้โรงเรียนอรพิมพ์วิทยา">
+        </div>
+        <div class="header-text">
+            <div class="school-name">โรงเรียนอรพิมพ์วิทยา</div>
+            <div class="school-sub">ตำบลอรพิมพ์ อำเภอครบุรี จังหวัดนครราชสีมา</div>
+        </div>
     </div>
-
-    <h1>ระบบรับสมัครนักเรียนออนไลน์</h1>
-    <p class="subtitle">โรงเรียนอรพิมพ์วิทยา อำเภอครบุรี จังหวัดนครราชสีมา</p>
-
-    <div class="m4-label">ระดับชั้นมัธยมศึกษาปีที่ 1</div>
-    <div class="selection-grid">
-        <a href="/form1" class="card m1">
-            <h3>ระดับชั้นมัธยมศึกษาปีที่ 1</h3>
-            <p style="font-weight: normal; color: #777;">เปิดรับสมัครนักเรียนใหม่ ม.1</p>
-        </a>
-
-        <div class="m4-label">ระดับชั้นมัธยมศึกษาปีที่ 4</div>
-
-        <a href="/form41" class="card m4">
-            <h3>วิทย์ - คณิต</h3>
-            <p style="font-weight: normal; color: #777;">แผนการเรียนวิทยาศาสตร์ - คณิตศาสตร์</p>
-        </a>
-
-        <a href="/form42" class="card m4">
-            <h3>คณิต - วิทย์ (เทคโนโลยี)</h3>
-            <p style="font-weight: normal; color: #777;">แผนการเรียนเทคโนโลยีและนวัตกรรม</p>
-        </a>
-
-        <a href="/form43" class="card m4">
-            <h3>ช่างทั่วไป</h3>
-            <p style="font-weight: normal; color: #777;">แผนการเรียนสายทักษะวิชาชีพ</p>
-        </a>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 โรงเรียนอรพิมพ์วิทยา <br> ต.แชะ อ.ครบุรี จ.นครราชสีมา</p>
-    </footer>
+    <div class="gold-rule"></div>
 </div>
+
+<!-- ════════════ PAGE TITLE STRIP ════════════ -->
+<div class="page-title-strip">
+    <div class="page-title-inner">
+        <span class="badge-year">ปีการศึกษา 2569</span>
+        <span class="page-title-text">ระบบรับสมัครนักเรียนออนไลน์</span>
+    </div>
+</div>
+
+<!-- ════════════ MAIN CONTENT ════════════ -->
+<main class="main">
+
+    <!-- Notice -->
+    <div class="notice">
+        <svg class="notice-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div class="notice-text">
+            <strong>แจ้งเพื่อทราบ:</strong> กรุณาเลือกระดับชั้นและแผนการเรียนที่ต้องการสมัคร แล้วกรอกข้อมูลให้ครบถ้วนและถูกต้อง เพื่อความสะดวกในการดำเนินการต่อไป
+        </div>
+    </div>
+
+    <!-- ม.1 -->
+    <div class="section-label">
+        <span class="section-label-text">ระดับชั้นมัธยมศึกษาตอนต้น</span>
+        <div class="section-label-line"></div>
+    </div>
+
+    <div class="card-grid cols-1">
+        <a href="/form1" class="card green">
+            <div class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-title">มัธยมศึกษาปีที่ 1 (ม.1)</div>
+                <div class="card-desc">รับสมัครนักเรียนที่จบการศึกษาระดับประถมศึกษาปีที่ 6</div>
+            </div>
+            <div class="card-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </a>
+    </div>
+
+    <!-- ม.4 -->
+    <div class="section-gap"></div>
+    <div class="section-label">
+        <span class="section-label-text">ระดับชั้นมัธยมศึกษาตอนปลาย</span>
+        <div class="section-label-line"></div>
+    </div>
+
+    <div class="card-grid cols-3">
+
+        <a href="/form41" class="card navy">
+            <div class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-title">วิทย์ – คณิต</div>
+                <div class="card-desc">แผนวิทยาศาสตร์ - คณิตศาสตร์</div>
+            </div>
+            <div class="card-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </a>
+
+        <a href="/form42" class="card navy">
+            <div class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-title">คณิต – เทคโนโลยี</div>
+                <div class="card-desc">แผนเทคโนโลยีและนวัตกรรม</div>
+            </div>
+            <div class="card-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </a>
+
+        <a href="/form43" class="card navy">
+            <div class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+            </div>
+            <div class="card-body">
+                <div class="card-title">ช่างทั่วไป</div>
+                <div class="card-desc">แผนสายทักษะวิชาชีพ</div>
+            </div>
+            <div class="card-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </a>
+
+    </div>
+
+</main>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+    <div class="footer-logo-row">
+        <img src="https://scontent.fnak3-1.fna.fbcdn.net/v/t39.30808-6/273132612_251595167153102_7617235967746055250_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=53a332&_nc_eui2=AeE7m3_1sEqqV2QGAklVQu3drKDYRiOogTWsoNhGI6iBNc1utvRSKRPIYWMxBB4HVizAQLH86yJYZxZlr-QgFyug&_nc_ohc=6W3ur_RsIs0Q7kNvwEIXfFL&_nc_oc=AdnquH93U0B2VIOYUJkiRVqMRqMv2kaUMOPlvW4JlVoNGcPWQYWY86__CDzPj6aX8zPb_N1vAGYQtwnHM2h42YTH&_nc_zt=23&_nc_ht=scontent.fnak3-1.fna&_nc_gid=Rcc8OJ9Vpkumcvy0BoBNSQ&_nc_ss=8&oh=00_AfyV1-Cm-zxxx0Tc4RJn4zBQT2CGBEUmpFSI3mdwEXdyIA&oe=69BA0471" alt="">
+        <span class="footer-school-name">โรงเรียนอรพิมพ์วิทยา</span>
+    </div>
+    <div class="footer-address">ตำบลอรพิมพ์ อำเภอครบุรี จังหวัดนครราชสีมา &nbsp;|&nbsp; &copy; 2569</div>
+</footer>
 
 </body>
 </html>
