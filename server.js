@@ -32,8 +32,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/formor', (req, res) => {
-    res.render('formor.ejs');
+app.get('/formall', (req, res) => {
+    res.render('formall.ejs');
 });
 
 app.get('/form1', (req, res) => {
