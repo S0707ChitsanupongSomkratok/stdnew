@@ -425,15 +425,17 @@
     &nbsp;&nbsp;&nbsp;&nbsp;ข้าพเจ้าขอรับรองว่าข้อความที่กล่าวมาในขั้นต้นเป็นความจริงทุกประการและข้าพเจ้ามีความประสงค์ที่จะสมัครเข้าเรียนชั้นมัธยมศึกษาปีที่ 4 ในปีการศึกษา 2569
   </div>
 
+  <br>
+
   <!-- Signature applicant -->
   <div class="sig-section">
     ลงชื่อ<span class="sig-line"></span>ผู้สมัคร<br>
-    <span style="display:inline-block;width:150px;text-align:center;"><p style="text-align: center;"><b style="font-size: 14px;">(<%= student.prefix%><%= student.firstname%> <%= student.lastname%>)</b></p></span><br>
+    <span style="display:inline-block;width:190px;text-align:center;"><p style="text-align: left;"><b style="font-size: 14px;">(<%= student.prefix%><%= student.firstname%> <%= student.lastname%>)</b></p></span><br>
     <%= new Date().toLocaleDateString('th-TH',{
         day:'2-digit',
         month:'long',
         year:'numeric'
-    }) %>
+    }) %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 
   <div style="margin:7px 0 7px 0; border-top:1px dashed #555;"></div>
@@ -479,15 +481,17 @@
     </div>
   </div>
 
+  <br>
+
   <!-- Bottom signature staff -->
   <div class="bottom-sig">
     ลงชื่อ<span style="border-bottom:1px solid #333; display:inline-block; width:150px;"></span>เจ้าหน้าที่รับเอกสาร<br>
-    (<span style="display:inline-block;width:150px;text-align:center;">........................................</span>)<br>
+    <span style="display:inline-block;width:350px;text-align:center;">(........................................)</span><br>
      <%= new Date().toLocaleDateString('th-TH',{
         day:'2-digit',
         month:'long',
         year:'numeric'
-    }) %>
+    }) %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 
 </div>

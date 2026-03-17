@@ -4,25 +4,24 @@ const PORT = process.env.PORT || 3000;
 
 const mysql = require("mysql2");
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: "thsv63.hostatom.com",
     user: "google_student",
     password: "orapimwit",
     database: "google_student",
-    port: 3306
+    port: 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    enableKeepAlive: true, // ช่วยรักษาการเชื่อมต่อให้ไม่หลุดง่าย
+    keepAliveInitialDelay: 10000
 });
 
-// const db = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "mydatabase",
-// });
+// ไม่ต้องใช้ db.connect() แล้วครับ Pool จะเชื่อมต่อให้เองเมื่อมีการ Query
+console.log("MySQL Pool Created");
 
-db.connect((err) => {
-    if (err) throw err;
-    console.log("MySQL Connected");
-});
+// เวลาใช้งานในจุดอื่นๆ ของ server.js ใช้ db.query() เหมือนเดิมได้เลย ไม่ต้องแก้เยอะ
+
 
 
 const app = express();

@@ -89,28 +89,26 @@
 
     <script>
         function linkTo(x) {
-            if (x == "a") {
-                window.location = "/formall";
+             if (x == "a") {
+                window.open("/formall", "_blank"); // เปิดหน้าใหม่
             } else if (x == "b") {
-                window.location = "/stdor";
-            } else if (x == "c") {
+                window.open("/stdor", "_blank");
+             } else if (x == "c") {
                 const now = new Date();
                 const d = String(now.getDate()).padStart(2, '0');
                 const m = String(now.getMonth() + 1).padStart(2, '0');
                 const y = now.getFullYear() + 543;
-                const h = String(now.getHours()).padStart(2, '0');
-                const min = String(now.getMinutes()).padStart(2, '0');
                 
-                const fullDate = `${d}-${m}-${y}-${h}:${min}`;
                 const datere = `${y - 543}-${m}-${d}`;
 
-                window.location = "/showday/" + datere;
+                window.open("/showday/" + datere, "_blank");
             } else if (x == "d") {
-                alert("ยังไม่ได้ทำเลยครับ")
+                alert("ยังไม่ได้ทำเลยครับ");
             } else if (x == "e") {
-                window.location = "/showstdnew";
+                window.open("/showstdnew", "_blank");
             }
         }
+
     </script>
 
     
