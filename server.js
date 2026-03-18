@@ -4,23 +4,41 @@ const PORT = process.env.PORT || 3000;
 
 const mysql = require("mysql2");
 
+// const db = mysql.createPool({
+//     host: "thsv63.hostatom.com",
+//     user: "google_student",
+//     password: "orapimwit",
+//     database: "google_student",
+//     port: 3306,
+//     waitForConnections: true,
+//     connectionLimit: 10,
+//     queueLimit: 0,
+//     enableKeepAlive: true, // ช่วยรักษาการเชื่อมต่อให้ไม่หลุดง่าย
+//     keepAliveInitialDelay: 10000
+// });
+
+// // ไม่ต้องใช้ db.connect() แล้วครับ Pool จะเชื่อมต่อให้เองเมื่อมีการ Query
+// console.log("MySQL Pool Created");
+
+// // เวลาใช้งานในจุดอื่นๆ ของ server.js ใช้ db.query() เหมือนเดิมได้เลย ไม่ต้องแก้เยอะ
+
 const db = mysql.createPool({
-    host: "thsv63.hostatom.com",
-    user: "google_student",
-    password: "orapimwit",
-    database: "google_student",
-    port: 3306,
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "mydatabase",
+    // port: 3306,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    enableKeepAlive: true, // ช่วยรักษาการเชื่อมต่อให้ไม่หลุดง่าย
+    enableKeepAlive: true, 
     keepAliveInitialDelay: 10000
 });
 
-// ไม่ต้องใช้ db.connect() แล้วครับ Pool จะเชื่อมต่อให้เองเมื่อมีการ Query
-console.log("MySQL Pool Created");
 
-// เวลาใช้งานในจุดอื่นๆ ของ server.js ใช้ db.query() เหมือนเดิมได้เลย ไม่ต้องแก้เยอะ
+console.log("MySQL Pool Created รันใน database จำลอง");
+
+
 
 
 
@@ -425,6 +443,95 @@ app.get('/stdor', (req, res) => {
 
     });
 
+});
+
+app.get('/searchorder', (req, res) => {
+    res.render('searchorder.ejs');
+});
+
+app.get('/stdorder/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM stdnew WHERE id = ?';
+    
+    db.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        // ส่งข้อมูลแถวแรก (result[0]) ไปที่ไฟล์ ejs
+        res.render('stdorder', { std: result[0] }); 
+    });
+});
+
+app.post('/addorder', (req, res) => {
+    // 1. รับค่าจาก body (ชื่อต้องตรงกับ attribute 'name' ใน <input> ของ HTML)
+    const { id, prefix, firstname, lastname, polotype, polosite, schoolsite } = req.body;
+
+    // 2. เตรียมคำสั่ง SQL
+    const sql = `INSERT INTO stdorder 
+                (order_id, order_prefix, order_firstname, order_lastname, polotype, polosite, schoolsite) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [id, prefix, firstname, lastname, polotype, polosite, schoolsite];
+
+    // 3. รันคำสั่ง SQL
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+        }
+        // บันทึกสำเร็จ อาจจะ redirect ไปหน้าขอบคุณหรือหน้าแสดงรายการ
+        res.redirect("/searchorder");
+    });
+});
+
+app.get('/summary', async (req, res) => {
+    try {
+        const allSizes = ['34', '36', '38', '40', '42', '44', '46', '48', '50', '52'];
+
+        const [poloData] = await db.promise().query(`
+            SELECT TRIM(polotype) as polotype, polosite, COUNT(*) as total 
+            FROM stdorder 
+            GROUP BY TRIM(polotype), polosite
+        `);
+        
+        const [schoolData] = await db.promise().query(`
+            SELECT schoolsite, COUNT(*) as total 
+            FROM stdorder 
+            GROUP BY schoolsite
+        `);
+
+        const mapPolo = (type) => {
+            return allSizes.map(size => {
+                const found = poloData.find(d =>
+                    d.polotype === type && String(d.polosite) === size
+                );
+                return { size, total: found ? Number(found.total) : 0 };
+            });
+        };
+
+        const mapSchool = () => {
+            return allSizes.map(size => {
+                const found = schoolData.find(d => String(d.schoolsite) === size);
+                return { size, total: found ? Number(found.total) : 0 };
+            });
+        };
+
+        const yellowPolo  = mapPolo('โปโลสีเหลือง');
+        const bluePolo    = mapPolo('โปโลสีน้ำเงิน');
+        const schoolShirt = mapSchool();
+
+        res.render('summaryorder', { yellowPolo, bluePolo, schoolShirt });
+
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.get('/debug-summary', async (req, res) => {
+    const [poloData] = await db.promise().query(`
+        SELECT polotype, polosite, COUNT(*) as total 
+        FROM stdorder 
+        GROUP BY polotype, polosite
+    `);
+    res.json(poloData);
 });
 
 app.get('/admin', (req, res) => {

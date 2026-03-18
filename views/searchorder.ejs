@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จองเสื้อโรงเรียนอรพิมพ์วิทยา</title>
+    <!-- นำเข้าฟอนต์ Kanit เพื่อความสวยงามแบบไทย -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #3498db;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .footer-text {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>จองเสื้อนักเรียน<br><small style="font-size: 0.6em; color: #666;">โรงเรียนอรพิมพ์วิทยา</small></h2>
+        
+        <div class="input-group">
+            <input id="idid" placeholder="กรอกเลขประจำตัวผู้สมัคร" type="number" required>
+        </div>
+        
+        <button onclick="searchorder()">ค้นหารายชื่อ</button>
+        
+        <p class="footer-text">กรุณาตรวจสอบเลขประจำตัวให้ถูกต้อง</p>
+    </div>
+
+    <script>
+        function searchorder() {
+            const idDom = document.querySelector('#idid');
+            const id = idDom.value;
+
+            if (id === "") {
+                alert("กรุณากรอกเลขประจำตัวก่อนค้นหา");
+                return;
+            }
+
+            window.open("/stdorder/" + id, "_blank");
+        }
+
+        // เพิ่มฟังก์ชันให้กด Enter เพื่อค้นหาได้เลย
+        document.getElementById("idid").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchorder();
+            }
+        });
+    </script>
+    
+</body>
+</html>

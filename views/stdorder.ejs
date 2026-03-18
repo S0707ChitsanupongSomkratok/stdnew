@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการสั่งเสื้อโปโลโรงเรียนอรพิมพ์วิทยา</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            color: #3498db;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        input[readonly] {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+        }
+
+        .selection-area {
+            background: #ebf5fb;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-card">
+        <h2>สั่งจองเสื้อโรงเรียน</h2>
+
+        <form action="/addorder" method="post">
+            <div class="section-title">ข้อมูลผู้สมัคร</div>
+            
+            <div class="input-group">
+                <label for="id">รหัสประจำตัวผู้สมัคร</label>
+                <input readonly value="<%= std.id %>" type="text" name="id" id="id">
+            </div>
+
+            <div class="grid-container">
+                <div class="input-group">
+                    <label for="prefix">คำนำหน้าชื่อ</label>
+                    <input readonly value="<%= std.prefix %>" type="text" name="prefix" id="prefix">
+                </div>
+                <div class="input-group">
+                    <label for="polotype">ประเภทเสื้อที่ได้รับ</label>
+                    <input value="<%= std.class == '1' ? 'โปโลสีเหลือง' : 'โปโลสีน้ำเงิน' %>" type="text" name="polotype" id="polotype" readonly>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="input-group">
+                    <label for="firstname">ชื่อ</label>
+                    <input readonly value="<%= std.firstname %>" type="text" name="firstname" id="firstname">
+                </div>
+                <div class="input-group">
+                    <label for="lastname">นามสกุล</label>
+                    <input readonly value="<%= std.lastname %>" type="text" name="lastname" id="lastname">
+                </div>
+            </div>
+
+            <div class="selection-area">
+                <div class="section-title" style="color: #2c3e50;">เลือกขนาดไซส์เสื้อ</div>
+                
+                <div class="grid-container">
+                    <div class="input-group">
+                        <label for="polosite">ไซส์เสื้อโปโล</label>
+                        <select name="polosite" id="polosite" required>
+                            <option value="">เลือกไซส์</option>
+                            <% [34, 36, 38, 40, 42, 44, 46, 48, 50, 52].forEach(size => { %>
+                                <option value="<%= size %>"><%= size %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="schoolsite">ไซส์เสื้อกีฬา</label>
+                        <select name="schoolsite" id="schoolsite" required>
+                            <option value="">เลือกไซส์</option>
+                            <% [34, 36, 38, 40, 42, 44, 46, 48, 50, 52].forEach(size => { %>
+                                <option value="<%= size %>"><%= size %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">ยืนยันการสั่งจอง</button>
+        </form>
+    </div>
+
+</body>
+</html>
