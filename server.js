@@ -478,7 +478,14 @@ app.post('/addorder', (req, res) => {
             return res.status(500).send("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
         }
         // บันทึกสำเร็จ อาจจะ redirect ไปหน้าขอบคุณหรือหน้าแสดงรายการ
-        res.redirect("/searchorder");
+          res.send(`
+            <script>
+                alert("สั่งจองสำเร็จเรียบร้อยแล้ว!");
+                setTimeout(function() {
+                    window.location.href = "/searchorder";
+                }, 2000); // 3000 คือ 3 วินาที
+            </script>
+        `);
     });
 });
 
