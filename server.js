@@ -541,6 +541,121 @@ app.get('/debug-summary', async (req, res) => {
     res.json(poloData);
 });
 
+app.get('/searchscore', async (req, res) => {
+    res.render('searchscore.ejs');
+});
+
+app.post('/check-score', (req, res) => {
+    const { score_id, score_pin } = req.body;
+
+    // ใช้คำสั่ง SQL ตรวจสอบว่ามีแถวที่ทั้ง ID และ PIN ตรงกันไหม
+    const sql = "SELECT * FROM stdscore WHERE score_id = ? AND score_pin = ?";
+
+    db.query(sql, [score_id, score_pin], (err, results) => {
+        if (err) throw err;
+
+        if (results.length > 0) {
+            // กรณีพบข้อมูล (ID และ PIN ถูกต้อง)
+            // results[0] คือข้อมูลแถวแรกที่เจอ
+            res.render('result', { data: results[0] });
+        } else {
+            // กรณีไม่พบข้อมูล หรือข้อมูลไม่ตรงกัน
+            res.render('searchscore', { error: "ไม่พบข้อมูล หรือ ID/PIN ไม่ถูกต้อง" });
+        }
+    });
+});
+
+app.get('/searchre', (req, res) => {
+    res.render('searchre.ejs');
+});
+
+app.get('/reporting/:id', (req, res) => {
+    const id = req.params.id
+
+        const sql = "SELECT * FROM stdnew WHERE id = ?"
+
+        db.query(sql,[id],(err,result)=>{
+
+        const std = result[0]
+
+        res.render("reporting",{std})
+
+    });
+});
+
+app.post('/safereport', (req, res) => {
+
+    const now = new Date();
+    const d = String(now.getDate()).padStart(2, '0');
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const y = now.getFullYear() + 543;
+    const h = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    
+    const timere = `${d}-${m}-${y}-${h}:${min}`;
+    const datere = `${y - 543}-${m}-${d}`;
+
+
+    const { id, pin, name, homestd, classs, pan, sold, room, stdfm, aboutstd, tel } = req.body;
+
+    // 2. เตรียมคำสั่ง SQL
+    const sql = `INSERT INTO stdreport 
+                (id, pin, name, homestd, classs, pan, sold, room, stdfm, aboutstd, tel, datere, timere) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    const values = [id, pin, name, homestd, classs, pan, sold, room, stdfm, aboutstd, tel, datere, timere];
+
+    // 3. รันคำสั่ง SQL
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+        }
+        // บันทึกสำเร็จ อาจจะ redirect ไปหน้าขอบคุณหรือหน้าแสดงรายการ
+          res.send(`
+            <script>
+                alert("บันทึกการรายงานตัวเรียบร้อยแล้ว!");
+                setTimeout(function() {
+                    window.location.href = "/searchre";
+                }, 1000); // 3000 คือ 3 วินาที
+            </script>
+        `);
+    });
+});
+
+app.get('/reportsummary', (req, res) => {
+    // ดึงข้อมูลทั้งหมดโดย LEFT JOIN เพื่อเช็คสถานะการรายงานตัว
+    const sql = `
+        SELECT s.*, r.id AS is_reported
+        FROM stdnew s
+        LEFT JOIN stdreport r ON s.id = r.id
+        ORDER BY s.room ASC, s.id ASC
+    `;
+
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+
+        // จัดกลุ่มข้อมูลตามแผนการเรียน (room)
+        const groupedData = results.reduce((acc, student) => {
+            const room = student.room; // เช่น m1, m41
+            if (!acc[room]) {
+                acc[room] = { reported: [], notReported: [] };
+            }
+
+            if (student.is_reported) {
+                acc[room].reported.push(student);
+            } else {
+                acc[room].notReported.push(student);
+            }
+            return acc;
+        }, {});
+
+        // ส่งข้อมูลที่จัดกลุ่มแล้วไปที่หน้า EJS
+        res.render('reportView', { groupedData });
+    });
+});
+
+
 app.get('/admin', (req, res) => {
     res.render('admin.ejs');
 })

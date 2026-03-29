@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค้นหารายชื่อผู้สมัครเพื่อรายงานตัว - โรงเรียนอรพิมพ์วิทยา</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2744;
+            --primary-light: #243460;
+            --accent: #c9a84c;
+            --accent-light: #f0d98a;
+            --surface: #ffffff;
+            --surface-2: #f4f3ef;
+            --border: #e2ddd4;
+            --text: #1a2744;
+            --text-muted: #8a8070;
+            --error: #c0392b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background decoration */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 50%),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(255,255,255,0.012) 60px,
+                    rgba(255,255,255,0.012) 120px
+                );
+            pointer-events: none;
+        }
+
+        /* Floating decorative circles */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .bg-circle-1 {
+            width: 500px; height: 500px;
+            top: -180px; right: -120px;
+            background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+        }
+        .bg-circle-2 {
+            width: 400px; height: 400px;
+            bottom: -150px; left: -100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: var(--surface);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 480px;
+            margin: 24px;
+            box-shadow:
+                0 32px 80px rgba(0,0,0,0.35),
+                0 0 0 1px rgba(255,255,255,0.06);
+            overflow: hidden;
+            position: relative;
+            animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(32px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Card top banner */
+        .card-banner {
+            background: var(--primary);
+            padding: 32px 36px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 60%, transparent 100%);
+        }
+
+        .banner-deco {
+            position: absolute;
+            right: -20px; top: -20px;
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            border: 28px solid rgba(201,168,76,0.08);
+        }
+
+        .banner-deco-2 {
+            position: absolute;
+            right: 40px; bottom: -30px;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            border: 18px solid rgba(201,168,76,0.05);
+        }
+
+        .school-logo {
+            width: 52px; height: 52px;
+            background: rgba(201,168,76,0.15);
+            border: 1.5px solid rgba(201,168,76,0.4);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .school-logo svg {
+            width: 26px; height: 26px;
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .school-name {
+            font-family: 'Noto Serif Thai', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .school-sub {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            margin-top: 4px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* Card body */
+        .card-body {
+            padding: 32px 36px 36px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif Thai', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .section-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        /* Input group */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .input-icon svg {
+            width: 18px; height: 18px;
+            stroke: var(--text-muted);
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            display: block;
+            transition: stroke 0.2s;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1rem;
+            color: var(--text);
+            background: var(--surface-2);
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            outline: none;
+            letter-spacing: 0.05em;
+        }
+
+        input[type="text"]::placeholder {
+            color: #b8b2a8;
+            letter-spacing: 0;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(201,168,76,0.12);
+        }
+
+        input[type="text"]:focus ~ .input-icon svg,
+        .input-wrapper:focus-within .input-icon svg {
+            stroke: var(--accent);
+        }
+
+        /* Error message */
+        .error-msg {
+            display: none;
+            font-size: 0.8rem;
+            color: var(--error);
+            margin-top: 8px;
+            padding-left: 4px;
+            animation: shake 0.3s ease;
+        }
+
+        .error-msg.show { display: block; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* Button */
+        .btn-search {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-search::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(201,168,76,0.18) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .btn-search:hover {
+            background: var(--primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(26,39,68,0.25);
+        }
+
+        .btn-search:hover::before { opacity: 1; }
+
+        .btn-search:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .btn-search svg {
+            width: 18px; height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0;
+        }
+
+        /* Footer note */
+        .card-footer-note {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .card-footer-note a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Press Enter hint */
+        .enter-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .enter-hint.visible { opacity: 1; }
+
+        .key-badge {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 520px) {
+            .card-banner, .card-body { padding-left: 24px; padding-right: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+
+    <div class="card">
+
+        <!-- Banner -->
+        <div class="card-banner">
+            <div class="banner-deco"></div>
+            <div class="banner-deco-2"></div>
+
+            <div class="school-logo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 9.5L12 4l9 5.5V20H3V9.5z"/>
+                    <path d="M9 20v-6h6v6"/>
+                    <path d="M12 4v3M8 7h8"/>
+                </svg>
+            </div>
+
+            <div class="school-name">โรงเรียนอรพิมพ์วิทยา</div>
+            <div class="school-sub">Oraphim Wittaya School &nbsp;·&nbsp; ระบบรายงานตัวนักเรียน</div>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body">
+            <h2 class="section-title">ค้นหาข้อมูลผู้สมัคร</h2>
+            <p class="section-desc">กรอกรหัสประจำตัวผู้สมัครเพื่อดำเนินการรายงานตัวเข้าเป็นนักเรียน</p>
+
+            <div class="input-group">
+                <label class="input-label" for="id">รหัสประจำตัวผู้สมัคร</label>
+                <div class="input-wrapper">
+                    <div class="input-icon">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="16" rx="2"/>
+                            <circle cx="9" cy="10" r="2"/>
+                            <path d="M15 8h2M15 12h2M7 16h10"/>
+                        </svg>
+                    </div>
+                    <input
+                        type="text"
+                        id="id"
+                        name="id"
+                        placeholder="XXXX"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, ''); onInput()"
+                        onkeydown="if(event.key==='Enter') search()"
+                        maxlength="10"
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+                <span class="enter-hint" id="enterHint">
+                    กด <span class="key-badge">Enter</span> หรือปุ่มค้นหาด้านล่าง
+                </span>
+                <div class="error-msg" id="errorMsg">⚠ กรุณากรอกรหัสประจำตัวผู้สมัครก่อน</div>
+            </div>
+
+            <button class="btn-search" onclick="search()">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                ค้นหาและรายงานตัว
+            </button>
+
+            <div class="divider"></div>
+
+            <p class="card-footer-note">
+                หากไม่พบข้อมูลหรือมีปัญหา กรุณาติดต่อเจ้าหน้าที่<br>
+                ห้องทะเบียน โรงเรียนอรพิมพ์วิทยา
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        function onInput() {
+            const val = document.querySelector('#id').value;
+            const hint = document.getElementById('enterHint');
+            const err  = document.getElementById('errorMsg');
+            hint.classList.toggle('visible', val.length > 0);
+            if (val.length > 0) err.classList.remove('show');
+        }
+
+        function search() {
+            const idDom = document.querySelector('#id');
+            const id = idDom.value.trim();
+
+            if (!id) {
+                const err = document.getElementById('errorMsg');
+                err.classList.remove('show');
+                void err.offsetWidth; // re-trigger animation
+                err.classList.add('show');
+                idDom.focus();
+                return;
+            }
+
+            window.open('/reporting/' + id);
+        }
+    </script>
+
+</body>
+</html>
